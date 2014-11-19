@@ -1,0 +1,13 @@
+#! /bin/bash
+
+echo """
+To enable automatic updates:
+/usr/local/bin/enableAutoUpdates
+
+To install the latest OpenStack tools:
+/usr/local/bin/installOpenStackTools
+
+To use the local software update proxy (Debian/Ubuntu only):
+/usr/local/bin/localSUS
+"""
+
