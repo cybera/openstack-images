@@ -5,9 +5,9 @@
   "builders": [{
     "type": "openstack",
     "source_image": "{{ user `source_image` }}",
-    "ssh_username": "ubuntu",
+    "ssh_username": "centos",
     "openstack_provider": "nova",
-    "image_name": "Packer1204",
+    "image_name": "Packer CentOS7",
     "flavor": "2"
   }],
   "provisioners": [{
@@ -17,26 +17,21 @@
   {
     "type": "file",
     "source": "enableAutoUpdate.sh",
-    "destination": "/home/ubuntu/enableAutoUpdate"
+    "destination": "/home/centos/enableAutoUpdate"
   },
   {
     "type": "file",
     "source": "installOpenStackTools.sh",
-    "destination": "/home/ubuntu/installOpenStackTools"
+    "destination": "/home/centos/installOpenStackTools"
   },
   {
     "type": "file",
-    "source": "localSUS.sh",
-    "destination": "/home/ubuntu/localSUS"
-  },
-  {
-    "type": "file",
-    "source": "motd.debian",
-    "destination": "/home/ubuntu/motd"
+    "source": "motd.redhat",
+    "destination": "/home/centos/motd"
   },
   {
     "type": "shell",
-    "script": "UbuntuBootstrap.sh",
+    "script": "RedHatBootstrap.sh",
     "pause_before": "1s"
   }]
 }

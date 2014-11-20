@@ -31,12 +31,12 @@
   },
   {
     "type": "file",
-    "source": "motd",
+    "source": "motd.debian",
     "destination": "/home/ubuntu/motd"
   },
   {
     "type": "shell",
-    "script": "PackerBootstrap.sh",
+    "script": "UbuntuBootstrap.sh",
     "pause_before": "1s"
   }]
 }
