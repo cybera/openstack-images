@@ -5,7 +5,7 @@
 sudo mv /home/ubuntu/motd /etc/update-motd.d/99-cybera
 sudo mv /home/ubuntu/enableAutoUpdate /usr/local/bin/
 sudo mv /home/ubuntu/installOpenStackTools /usr/local/bin/
-sudo ln -s /home/ubuntu/localSUS /usr/local/bin/
+sudo mv /home/ubuntu/localSUS /usr/local/bin/
 
 sudo chmod 755 /usr/local/bin/enableAutoUpdate
 sudo chmod 755 /usr/local/bin/installOpenStackTools
