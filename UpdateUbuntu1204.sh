@@ -19,6 +19,6 @@ openstack image delete TempUbuntuImage
 openstack image save $glance_id --file 1204.img
 
 source dairrc
-openstack image create --disk-format qcow2 --container-format bare --file 1204.img Packer1204
+openstack image create --disk-format qcow2 --container-format bare --file 1204.img "Ubuntu 12.04"
 
 

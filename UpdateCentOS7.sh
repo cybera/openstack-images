@@ -1,5 +1,4 @@
 #! /bin/bash
-sudo yum groupinstall -y "Development Tools"
 source racrc
 
 # Download the latest version
@@ -22,6 +21,6 @@ echo "Image Available on RAC!"
 openstack image save $glance_id --file COS7.img
 
 source dairrc
-openstack image create --disk-format qcow2 --container-format bare --file COS7.img CentOS 7.0
+openstack image create --disk-format qcow2 --container-format bare --file COS7.img "CentOS 7.0"
 
 echo "Image Available on DAIR!"

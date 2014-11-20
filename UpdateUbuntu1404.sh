@@ -21,6 +21,6 @@ echo "Image Available on RAC!"
 openstack image save $glance_id --file 1404.img
 
 source dairrc
-openstack image create --disk-format qcow2 --container-format bare --file 1404.img Packer1404
+openstack image create --disk-format qcow2 --container-format bare --file 1404.img "Ubuntu 14.04"
 
 echo "Image Available on DAIR!"

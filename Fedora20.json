@@ -5,9 +5,9 @@
   "builders": [{
     "type": "openstack",
     "source_image": "{{ user `source_image` }}",
-    "ssh_username": "centos",
+    "ssh_username": "fedora",
     "openstack_provider": "nova",
-    "image_name": "Packer CentOS7",
+    "image_name": "Packer Fedora",
     "flavor": "2"
   }],
   "provisioners": [{
@@ -17,22 +17,22 @@
   {
     "type": "file",
     "source": "enableAutoUpdate.sh",
-    "destination": "/home/centos/enableAutoUpdate"
+    "destination": "/home/fedora/enableAutoUpdate"
   },
   {
     "type": "file",
     "source": "installOpenStackTools.sh",
-    "destination": "/home/centos/installOpenStackTools"
+    "destination": "/home/fedora/installOpenStackTools"
   },
   {
     "type": "file",
     "source": "disableFirewall.sh",
-    "destination": "/home/centos/disableFirewall"
+    "destination": "/home/fedora/disableFirewall"
   },
   {
     "type": "file",
     "source": "motd.redhat",
-    "destination": "/home/centos/motd"
+    "destination": "/home/fedora/motd"
   },
   {
     "type": "shell",

@@ -7,6 +7,9 @@ To enable automatic updates please run:
 To install the latest OpenStack tools please run:
 /usr/local/bin/installOpenStackTools
 
+To disable the on by default firewall on CentOS please run:
+/usr/local/bin/disableFirewall
+
 To remove this message from your message of the day please run:
 sudo rm /etc/motd
 
