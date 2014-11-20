@@ -7,7 +7,7 @@
     "source_image": "{{ user `source_image` }}",
     "ssh_username": "ubuntu",
     "openstack_provider": "nova",
-    "image_name": "Ubuntu 14.04 Test",
+    "image_name": "Packer1404",
     "flavor": "2"
   }],
   "provisioners": [{
