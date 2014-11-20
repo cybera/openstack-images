@@ -11,6 +11,10 @@
     "flavor": "2"
   }],
   "provisioners": [{
+    "type": "shell",
+    "inline": ["sleep 5"]
+  },
+  {
     "type": "file",
     "source": "enableAutoUpdate.sh",
     "destination": "/home/ubuntu/enableAutoUpdate"
@@ -32,7 +36,8 @@
   },
   {
     "type": "shell",
-    "script": "PackerBootstrap.sh"
+    "script": "PackerBootstrap.sh",
+    "pause_before": "1s"
   }]
 }
 
