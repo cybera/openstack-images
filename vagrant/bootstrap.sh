@@ -20,9 +20,9 @@ wget https://dl.bintray.com/mitchellh/packer/packer_0.7.2_linux_amd64.zip
 sudo apt-get install -y unzip git python-pip
 unzip packer*.zip -d /usr/local/bin/
 
-sudo pip install python-openstackclient
+sudo pip install python-openstackclient python-glanceclient
 
-#git co URL HERE
-
+cd /root/
+git co https://github.com/Chealion/openstack-images.git packer
 
 touch /.provisioned
