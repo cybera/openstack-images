@@ -16,27 +16,27 @@
   },
   {
     "type": "file",
-    "source": "enableAutoUpdate.sh",
+    "source": "../packer_files/enableAutoUpdate.sh",
     "destination": "/home/centos/enableAutoUpdate"
   },
   {
     "type": "file",
-    "source": "installOpenStackTools.sh",
+    "source": "../packer_files/installOpenStackTools.sh",
     "destination": "/home/centos/installOpenStackTools"
   },
   {
     "type": "file",
-    "source": "disableFirewall.sh",
+    "source": "../packer_files/disableFirewall.sh",
     "destination": "/home/centos/disableFirewall"
   },
   {
     "type": "file",
-    "source": "motd.redhat",
+    "source": "../packer_files/motd.redhat",
     "destination": "/home/centos/motd"
   },
   {
     "type": "shell",
-    "script": "RedHatBootstrap.sh",
+    "script": "../packer_files/RedHatBootstrap.sh",
     "pause_before": "1s"
   }]
 }

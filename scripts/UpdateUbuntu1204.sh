@@ -1,6 +1,9 @@
 #! /bin/bash
-source racrc
+# Set to same as image_name in the .json - a temporary name for building
+IMAGE_NAME="Packer1204"
+source ../rc_files/racrc
 
+cd ../images
 # Download the latest version
 wget -N https://cloud-images.ubuntu.com/daily/server/precise/current/precise-server-cloudimg-amd64-disk1.img
 
@@ -11,14 +14,25 @@ glance_id=`openstack image create --disk-format qcow2 --container-format bare --
 # Run Packer on RAC
 packer build \
     -var "source_image=$glance_id" \
-    Ubuntu1204.json
+    scripts/Ubuntu1204.json | tee ../logs/Ubuntu1204.log
+
+if [ ${PIPESTATUS[0]} != 0 ]; then
+    exit 1
+fi
 
 openstack image delete TempUbuntuImage
+sleep 5
+# For some reason getting the ID fails but using the name succeeds.
+openstack image set --property description="Built on `date`" --property image_type='image' "${IMAGE_NAME}"
 
 # Grab Image and Upload to DAIR
-openstack image save $glance_id --file 1204.img
+openstack image save ${IMAGE_NAME} --file 1204.img
+openstack image set --name "Ubuntu 12.04" "${IMAGE_NAME}"
+echo "Image Available on RAC!"
 
-source dairrc
+source ../rc_files/dairrc
 openstack image create --disk-format qcow2 --container-format bare --file 1204.img "Ubuntu 12.04"
+
+echo "Image Available on DAIR!"
 
 

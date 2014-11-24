@@ -1,3 +1,4 @@
 *.img
+*.log
 *.pem
 *.qcow2

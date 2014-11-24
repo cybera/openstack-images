@@ -16,27 +16,27 @@
   },
   {
     "type": "file",
-    "source": "enableAutoUpdate.sh",
+    "source": "../packer_files/enableAutoUpdate.sh",
     "destination": "/home/fedora/enableAutoUpdate"
   },
   {
     "type": "file",
-    "source": "installOpenStackTools.sh",
+    "source": "../packer_files/installOpenStackTools.sh",
     "destination": "/home/fedora/installOpenStackTools"
   },
   {
     "type": "file",
-    "source": "disableFirewall.sh",
+    "source": "../packer_files/disableFirewall.sh",
     "destination": "/home/fedora/disableFirewall"
   },
   {
     "type": "file",
-    "source": "motd.redhat",
+    "source": "../packer_files/motd.redhat",
     "destination": "/home/fedora/motd"
   },
   {
     "type": "shell",
-    "script": "RedHatBootstrap.sh",
+    "script": "../packer_files/RedHatBootstrap.sh",
     "pause_before": "1s"
   }]
 }
