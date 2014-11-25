@@ -10,7 +10,7 @@ wget -N http://cloud.centos.org/centos/7/devel/CentOS-7-x86_64-GenericCloud.qcow
 # Resize image to 2.2 GB
 qemu-img convert -O raw CentOS-7-x86_64-GenericCloud.qcow2 C70.raw
 qemu-img resize C70.raw -5G
-qemu-img convert -O qcow2 C70.raw CentOS-7-x86_64-GenericCloud.qcow2
+qemu-img convert -c -O qcow2 C70.raw CentOS-7-x86_64-GenericCloud.qcow2
 rm C70.raw
 
 # Upload to Glance

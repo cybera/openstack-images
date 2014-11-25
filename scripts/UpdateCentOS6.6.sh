@@ -10,7 +10,7 @@ wget -N http://buildlogs.centos.org/rolling/6/CentOS-6-x86_64_20141029_01.qcow2
 # Resize image to 2.2 GB
 qemu-img convert -O raw CentOS-6-x86_64_20141029_01.qcow2 C66.raw
 qemu-img resize C66.raw -5G
-qemu-img convert -O qcow2 C66.raw CentOS-6-x86_64_20141029_01.qcow2
+qemu-img convert -c -O qcow2 C66.raw CentOS-6-x86_64_20141029_01.qcow2
 rm C66.raw
 
 # Upload to Glance
