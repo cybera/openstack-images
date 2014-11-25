@@ -1,0 +1,43 @@
+{
+  "variables": {
+    "source_image": ""
+  },
+  "builders": [{
+    "type": "openstack",
+    "source_image": "{{ user `source_image` }}",
+    "ssh_username": "centos",
+    "openstack_provider": "nova",
+    "image_name": "Packer CentOS66",
+    "flavor": "2"
+  }],
+  "provisioners": [{
+    "type": "shell",
+    "inline": ["sleep 5"]
+  },
+  {
+    "type": "file",
+    "source": "../packer_files/enableAutoUpdate.sh",
+    "destination": "/home/centos/enableAutoUpdate"
+  },
+  {
+    "type": "file",
+    "source": "../packer_files/installOpenStackTools.sh",
+    "destination": "/home/centos/installOpenStackTools"
+  },
+  {
+    "type": "file",
+    "source": "../packer_files/disableFirewall.sh",
+    "destination": "/home/centos/disableFirewall"
+  },
+  {
+    "type": "file",
+    "source": "../packer_files/motd.redhat",
+    "destination": "/home/centos/motd"
+  },
+  {
+    "type": "shell",
+    "script": "../packer_files/RedHatBootstrap.sh",
+    "pause_before": "1s"
+  }]
+}
+
