@@ -5,9 +5,9 @@ Packer scripts to take an OS vendor provided image and add some helper scripts.
 How to Use:
 
   1. Stand up the Packer box using Vagrant (see the vagrant folder)
-  2. Run UpdateAllImages.sh or specific images. If running a specific image run it as `scripts/UpdateDISTRO.sh` 
+  2. Run `UpdateAllImages.sh` or `cd` to the `scripts` folder and run the particular script you want. 
 
-Supported OSes:
+OSes that will build:
 
   * Ubuntu 12.04
   * Ubuntu 14.04
