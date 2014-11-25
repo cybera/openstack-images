@@ -19,6 +19,7 @@ sudo /etc/update-motd.d/99-cybera | sudo tee -a /var/run/motd.dynamic
 echo "Cleaning Up..."
 # Clean up injected data
 rm -rf /home/ubuntu/.ssh/authorized_keys
+rm -rf /home/debian/.ssh/authorized_keys
 
 #Ensure changes are written to disk
 sync
