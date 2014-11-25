@@ -7,6 +7,12 @@ cd ../images
 # Download the latest version
 wget -N http://cloud.centos.org/centos/7/devel/CentOS-7-x86_64-GenericCloud.qcow2
 
+# Resize image to 2.2 GB
+qemu-img convert -O raw CentOS-7-x86_64-GenericCloud.qcow2 C70.raw
+qemu-img resize C70.raw -5G
+qemu-img convert -O qcow2 C70.raw CentOS-7-x86_64-GenericCloud.qcow2
+rm C70.raw
+
 # Upload to Glance
 echo "Uploading to Glance..."
 glance_id=`openstack image create --disk-format qcow2 --container-format bare --file CentOS-7-x86_64-GenericCloud.qcow2 TempCentOSImage | grep id | awk ' { print $4 }'`

@@ -17,7 +17,7 @@ sudo apt-get update
 sudo apt-get -y upgrade
 
 wget https://dl.bintray.com/mitchellh/packer/packer_0.7.2_linux_amd64.zip
-sudo apt-get install -y unzip git python-pip
+sudo apt-get install -y unzip git python-pip qemu-utils
 unzip packer*.zip -d /usr/local/bin/
 
 sudo pip install python-openstackclient python-glanceclient
