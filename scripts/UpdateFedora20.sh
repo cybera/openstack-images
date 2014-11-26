@@ -14,7 +14,7 @@ glance_id=`openstack image create --disk-format qcow2 --container-format bare --
 # Run Packer on RAC
 packer build \
     -var "source_image=$glance_id" \
-    scripts/Fedora20.json | tee ../logs/Fedora20.log
+    ../scripts/Fedora20.json | tee ../logs/Fedora20.log
 
 if [ ${PIPESTATUS[0]} != 0 ]; then
     exit 1

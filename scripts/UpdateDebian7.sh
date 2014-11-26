@@ -17,7 +17,7 @@ glance_id=`openstack image create --disk-format qcow2 --container-format bare --
 # Run Packer on RAC
 packer build \
     -var "source_image=$glance_id" \
-    scripts/Debian7.json | tee ../logs/Debian7.log
+    ../scripts/Debian7.json | tee ../logs/Debian7.log
 
 if [ ${PIPESTATUS[0]} != 0 ]; then
     exit 1

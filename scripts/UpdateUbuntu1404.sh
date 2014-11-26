@@ -13,7 +13,7 @@ glance_id=`openstack image create --disk-format qcow2 --container-format bare --
 # Run Packer on RAC
 packer build \
     -var "source_image=$glance_id" \
-    scripts/Ubuntu1404.json | tee ../logs/Ubuntu1404.log
+    ../scripts/Ubuntu1404.json | tee ../logs/Ubuntu1404.log
 
 if [ ${PIPESTATUS[0]} != 0 ]; then
     exit 1
