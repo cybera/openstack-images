@@ -13,8 +13,6 @@ wget -N http://cloud.centos.org/centos/7/devel/CentOS-7-x86_64-GenericCloud.qcow
 echo "Uploading to Glance..."
 glance_id=`openstack image create --disk-format qcow2 --container-format bare --file CentOS-7-x86_64-GenericCloud.qcow2 TempCentOSImage | grep id | awk ' { print $4 }'`
 
-exit 0
-
 # Run Packer on RAC
 packer build \
     -var "source_image=$glance_id" \

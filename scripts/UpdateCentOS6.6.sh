@@ -11,6 +11,8 @@ wget -N http://buildlogs.centos.org/rolling/6/CentOS-6-x86_64_20141029_01.qcow2
 echo "Uploading to Glance..."
 glance_id=`openstack image create --disk-format qcow2 --container-format bare --file CentOS-6-x86_64_20141029_01.qcow2 TempCentOSImage | grep id | awk ' { print $4 }'`
 
+sleep 15
+
 # Run Packer on RAC
 packer build \
     -var "source_image=$glance_id" \

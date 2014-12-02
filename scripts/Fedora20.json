@@ -8,7 +8,7 @@
     "ssh_username": "fedora",
     "openstack_provider": "nova",
     "image_name": "Packer Fedora",
-    "flavor": "2"
+    "flavor": "1"
   }],
   "provisioners": [{
     "type": "shell",

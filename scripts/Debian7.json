@@ -8,7 +8,7 @@
     "ssh_username": "debian",
     "openstack_provider": "nova",
     "image_name": "PackerD7",
-    "flavor": "2"
+    "flavor": "1"
   }],
   "provisioners": [{
     "type": "shell",
@@ -37,7 +37,7 @@
   {
     "type": "shell",
     "script": "../packer_files/UbuntuBootstrap.sh",
-    "pause_before": "1s"
+    "pause_before": "3s"
   }]
 }
 

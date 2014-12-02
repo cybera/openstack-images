@@ -1,5 +1,6 @@
 #! /bin/bash
 # Set to same as image_name in the .json - a temporary name for building
+IMAGE_NAME="Packer1404"
 source ../rc_files/racrc
 
 cd ../images

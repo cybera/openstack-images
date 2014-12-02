@@ -18,6 +18,10 @@ sudo apt-get -y upgrade
 
 wget https://dl.bintray.com/mitchellh/packer/packer_0.7.2_linux_amd64.zip
 sudo apt-get install -y unzip git python-pip qemu-utils openstack-debian-images
+wget http://ftp.de.debian.org/debian/pool/main/o/openstack-debian-images/openstack-debian-images_1.1.tar.xz
+tar xvfJ openstack-debian-images_1.1.tar.xz
+mv openstack-debian-images-1.1/build-openstack-debian-image /usr/sbin
+rm -rf openstack*
 unzip packer*.zip -d /usr/local/bin/
 
 sudo pip install python-openstackclient python-glanceclient

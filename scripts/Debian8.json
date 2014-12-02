@@ -37,7 +37,7 @@
   {
     "type": "shell",
     "script": "../packer_files/UbuntuBootstrap.sh",
-    "pause_before": "1s"
+    "pause_before": "8s"
   }]
 }
 
