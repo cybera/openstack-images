@@ -8,7 +8,7 @@
     "ssh_username": "debian",
     "openstack_provider": "nova",
     "image_name": "PackerD8",
-    "flavor": "2"
+    "flavor": "1"
   }],
   "provisioners": [{
     "type": "shell",
