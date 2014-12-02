@@ -1,6 +1,3 @@
-#! /bin/bash
-
-echo """
 ----------------------------
  Cloud Image Helper Scripts
 ----------------------------
@@ -14,6 +11,5 @@ To use the local software update proxy please run:
 /usr/local/bin/localSUS
 
 To remove this message from your message of the day please run:
-sudo rm /etc/update-motd.d/99-cybera
-"""
+sudo rm /etc/motd.tail
 

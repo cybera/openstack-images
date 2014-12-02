@@ -5,13 +5,12 @@
 user=''
 if [ -d /home/ubuntu ]; then
     user='ubuntu'
-    sudo mv /home/${user}/motd /etc/update-motd.d/99-cybera
-    sudo chmod 755 /etc/update-motd.d/99-cybera
-    sudo chown root:root /etc/update-motd.d/99-cybera
+    sudo mv /home/${user}/motd /etc/motd.tail
 
     #Force update motd
-    sudo /etc/update-motd.d/99-cybera | sudo tee -a /var/run/motd.dynamic
+    sudo cat /etc/motd.tail >> /var/run/motd.dynamic
 else
+    # Debian does not have a default motd
     user='debian'
     sudo mv /home/${user}/motd /etc/motd
 fi
