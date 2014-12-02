@@ -1,6 +1,6 @@
 # Packer and Scripts for Cybera based Cloud Images
 
-Packer scripts to take an OS vendor provided image and add some helper scripts.
+Packer scripts to take an OS vendor provided image and add some helper scripts. Naming is done by major version so users can use the major version name (eg. CentOS 7, Ubuntu 14.04) as their image name and get the latest version.
 
 How to Use:
 

@@ -16,7 +16,7 @@ sleep 15
 # Run Packer on RAC
 packer build \
     -var "source_image=$glance_id" \
-    ../scripts/CentOS6.6.json $@ | tee ../logs/CentOS66.log
+    ../scripts/CentOS6.json $@ | tee ../logs/CentOS66.log
 
 if [ ${PIPESTATUS[0]} != 0 ]; then
     exit 1
@@ -29,11 +29,11 @@ openstack image set --property description="Built on `date`" --property image_ty
 
 # Grab Image and Upload to DAIR
 openstack image save "${IMAGE_NAME}" --file COS66.img
-openstack image set --name "CentOS 6.6" "${IMAGE_NAME}"
+openstack image set --name "CentOS 6" "${IMAGE_NAME}"
 echo "Image Available on RAC!"
 
 source ../rc_files/dairrc
-openstack image create --disk-format qcow2 --container-format bare --file COS66.img --property description="Built on `date`" "CentOS 6.6"
+openstack image create --disk-format qcow2 --container-format bare --file COS66.img --property description="Built on `date`" "CentOS 6"
 
 echo "Image Available on DAIR!"
 

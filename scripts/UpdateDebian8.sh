@@ -28,10 +28,10 @@ openstack image set --property description="Built on `date`" --property image_ty
 
 # Grab Image and Upload to DAIR
 openstack image save ${IMAGE_NAME} --file DB8.img
-openstack image set --name "Debian 8.0" "${IMAGE_NAME}"
+openstack image set --name "Debian 8" "${IMAGE_NAME}"
 echo "Image Available on RAC!"
 
 source ../rc_files/dairrc
-openstack image create --disk-format qcow2 --container-format bare --file DB8.img "Debian 8.0"
+openstack image create --disk-format qcow2 --container-format bare --file DB8.img "Debian 8"
 
 echo "Image Available on DAIR!"
