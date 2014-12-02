@@ -3,7 +3,7 @@
 cd ../images
 
 echo 'Create Debian Image'
-build-openstack-debian-image -r wheezy --debootstrap-url http://ftp.ca.debian.org/debian/ --image-size 4 --automatic-resize --automatic-resize-space 100
+build-openstack-debian-image -r wheezy --debootstrap-url http://ftp.ca.debian.org/debian/ --automatic-resize --automatic-resize-space 100
 echo 'Done'
 
 #Set to same as image_name in the .json - a temporary name for building

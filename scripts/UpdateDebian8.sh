@@ -2,7 +2,7 @@
 
 cd ../images
 
-build-openstack-debian-image -r jessie --debootstrap-url http://ftp.ca.debian.org/debian/ --image-size 5 --automatic-resize --automatic-resize-space 100
+build-openstack-debian-image -r jessie --debootstrap-url http://ftp.ca.debian.org/debian/ --automatic-resize --automatic-resize-space 100
 
 #Set to same as image_name in the .json - a temporary name for building
 IMAGE_NAME="PackerD8"
