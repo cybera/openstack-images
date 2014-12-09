@@ -5,7 +5,8 @@
 if [ -f /etc/debian_version ]; then
 
 sudo apt-get update
-sudo apt-get install -y python-pip
+# Install packages - more explicit due to Debian
+sudo apt-get install -y python-pip libssl-dev build-essential libffi-dev python-dev python-openssl
 
 elif [ -f /etc/redhat-release ]; then
 
