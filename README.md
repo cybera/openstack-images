@@ -7,6 +7,7 @@ How to Use:
   1. Stand up the Packer box using Vagrant (see the vagrant folder)
   2. Install rc files into the `rc_files` folder for the environment(s). Modify scripts as necessary.
   3. Run `UpdateAllImages.sh` or `cd` to the `scripts` folder and run the particular script you want. 
+  4. Set the images to Public manually after testing.
 
 Caveats:
 
@@ -19,8 +20,7 @@ OSes that will build:
   * CentOS 7
   * CentOS 6.6
   * Fedora 20
+  * Fedora 21
   * Debian 7
   * Debian 8
 
-TODO:
-  * BSD?
