@@ -23,7 +23,8 @@ fi
 openstack image delete TempUbuntu12Image
 sleep 5
 # For some reason getting the ID fails but using the name succeeds.
-openstack image set --property description="Built on `date`" --property image_type='image' "${IMAGE_NAME}"
+#openstack image set --property description="Built on `date`" --property image_type='image' "${IMAGE_NAME}"
+glance image-update --property description="Built on `date`" --property image_type='image' --purge-props "${IMAGE_NAME}"
 
 # Grab Image and Upload to DAIR
 openstack image save ${IMAGE_NAME} --file 1204.img
