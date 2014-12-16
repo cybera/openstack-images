@@ -1,15 +1,15 @@
 #! /bin/bash 
 # Set to same as image_name in the .json - a temporary name for building
-IMAGE_NAME="Packer CentOS66"
+IMAGE_NAME="PackerCentOS6"
 source ../rc_files/racrc
 
 cd ../images
-# Download the latest version
-wget -N http://buildlogs.centos.org/rolling/6/CentOS-6-x86_64_20141029_01.qcow2
+# Download the latest version - this URL will likely need updating
+wget -N http://buildlogs.centos.org/monthly/6/CentOS-6-x86_64-GenericCloud-20141129_01.qcow2c
 
 # Upload to Glance
 echo "Uploading to Glance..."
-glance_id=`openstack image create --disk-format qcow2 --container-format bare --file CentOS-6-x86_64_20141029_01.qcow2 TempCentOSImage | grep id | awk ' { print $4 }'`
+glance_id=`openstack image create --disk-format qcow2 --container-format bare --file CentOS-6-x86_64-GenericCloud-20141129_01.qcow2c TempCentOSImage | grep id | awk ' { print $4 }'`
 
 sleep 15
 

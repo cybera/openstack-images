@@ -5,10 +5,16 @@
 user=''
 if [ -d /home/ubuntu ]; then
     user='ubuntu'
+    # For 12.04
     sudo mv /home/${user}/motd /etc/motd.tail
+    # For 14.04
+    grep 14 /etc/lsb-release > /dev/null
+    if [ $? -eq 0 ]; then
+        sudo mv /etc/motd.tail /etc/motd
+    fi
 
     #Force update motd
-    sudo cat /etc/motd.tail >> /var/run/motd.dynamic
+    cat /etc/motd.tail | sudo tee -a /var/run/motd.dynamic
 else
     # Debian does not have a default motd
     user='debian'

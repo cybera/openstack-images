@@ -7,7 +7,7 @@
     "source_image": "{{ user `source_image` }}",
     "ssh_username": "centos",
     "openstack_provider": "nova",
-    "image_name": "Packer CentOS6",
+    "image_name": "PackerCentOS6",
     "flavor": "2"
   }],
   "provisioners": [{
