@@ -1,5 +1,7 @@
 #!/bin/bash
 
+#Manual Installer for the Tools for Debian based distros. Tested with Ubuntu 14.04
+
 apt-get update
 apt-get -y upgrade
 apt-get -y install git unzip
