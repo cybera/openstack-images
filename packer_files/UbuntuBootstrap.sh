@@ -5,16 +5,20 @@
 user=''
 if [ -d /home/ubuntu ]; then
     user='ubuntu'
-    # For 12.04
-    sudo mv /home/${user}/motd /etc/motd.tail
-    # For 14.04
-    grep 14 /etc/lsb-release > /dev/null
+
+    # Despite documentation saying to use motd.tail - using motd is required for it to work.
+    # 99-footer is not on the Ubuntu Cloud Images.
+    sudo mv /home/${user}/motd /etc/motd
+
+    #Force update Ubuntu's dynamic motd
+    cat /etc/motd | sudo tee -a /var/run/motd.dynamic
+
+    # 12.04 wants motd.tail instead of motd
+    grep 12 /etc/lsb-release > /dev/null
     if [ $? -eq 0 ]; then
-        sudo mv /etc/motd.tail /etc/motd
+	sudo mv /etc/motd /etc/motd.tail	
     fi
 
-    #Force update motd
-    cat /etc/motd.tail | sudo tee -a /var/run/motd.dynamic
 else
     # Debian does not have a default motd
     user='debian'

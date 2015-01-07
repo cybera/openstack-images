@@ -31,7 +31,7 @@
   },
   {
     "type": "file",
-    "source": "../packer_files/motd.debian",
+    "source": "../packer_files/motd.generic",
     "destination": "/home/ubuntu/motd"
   },
   {
