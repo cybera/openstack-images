@@ -7,9 +7,6 @@ To enable automatic updates please run:
 To install the latest OpenStack tools please run:
 /usr/local/bin/installOpenStackTools
 
-To disable the on by default firewall on CentOS please run:
-/usr/local/bin/disableFirewall
-
 To use the local software update proxy please run:
 /usr/local/bin/localSUS
 

@@ -16,7 +16,7 @@
   },
   {
     "type": "file",
-    "source": "../packer_files/enableAutoUpdate.sh",
+    "source": "../packer_files/enableAutoUpdateCentOS7.sh",
     "destination": "/home/centos/enableAutoUpdate"
   },
   {
@@ -31,7 +31,7 @@
   },
   {
     "type": "file",
-    "source": "../packer_files/motd.generic",
+    "source": "../packer_files/motd.CentOS7",
     "destination": "/home/centos/motd"
   },
   {

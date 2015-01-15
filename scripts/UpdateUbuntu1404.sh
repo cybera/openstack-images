@@ -31,7 +31,7 @@ openstack image save ${IMAGE_NAME} --file 1404.img
 openstack image set --name "Ubuntu 14.04" "${IMAGE_NAME}"
 echo "Image Available on RAC!"
 
-source ../rc_files/dairrc
-openstack image create --disk-format qcow2 --container-format bare --file 1404.img "Ubuntu 14.04"
+#source ../rc_files/dairrc
+#openstack image create --disk-format qcow2 --container-format bare --file 1404.img "Ubuntu 14.04"
 
-echo "Image Available on DAIR!"
+#echo "Image Available on DAIR!"

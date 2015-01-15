@@ -6,20 +6,15 @@ user=''
 if [ -d /home/ubuntu ]; then
     user='ubuntu'
 
-    # Despite documentation saying to use motd.tail - using motd is required for it to work.
-    # 99-footer is not on the Ubuntu Cloud Images.
-    sudo mv /home/${user}/motd /etc/motd
-
-    #Force update Ubuntu's dynamic motd
-    cat /etc/motd | sudo tee -a /var/run/motd.dynamic
-
     # 12.04 wants motd.tail instead of motd
     grep 12 /etc/lsb-release > /dev/null
     if [ $? -eq 0 ]; then
-	sudo mv /etc/motd /etc/motd.tail	
+	sudo mv /home/${user}/motd /etc/motd.tail	
+	sudo chown root:root /etc/motd.tail
 
-        #Alter text with correct path
-        sed -i 's/motd/motd.tail' /etc/motd.tail 
+	else
+	sudo mv /home/${user}/motd /etc/motd
+	sudo chown root:root /etc/motd
     fi
 
 else

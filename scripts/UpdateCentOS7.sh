@@ -33,8 +33,8 @@ openstack image save "${IMAGE_NAME}" --file COS7.img
 openstack image set --name "CentOS 7" "${IMAGE_NAME}"
 echo "Image Available on RAC!"
 
-source ../rc_files/dairrc
-openstack image create --disk-format qcow2 --container-format bare --file COS7.img --property description="Built on `date`" "CentOS 7"
+#source ../rc_files/dairrc
+#openstack image create --disk-format qcow2 --container-format bare --file COS7.img --property description="Built on `date`" "CentOS 7"
 
-echo "Image Available on DAIR!"
+#echo "Image Available on DAIR!"
 
