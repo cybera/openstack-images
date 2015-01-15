@@ -17,9 +17,11 @@ if [ -d /home/ubuntu ]; then
     grep 12 /etc/lsb-release > /dev/null
     if [ $? -eq 0 ]; then
 	sudo mv /etc/motd /etc/motd.tail	
+	sudo ln -s /var/run/motd /etc/motd
 
         #Alter text with correct path
         sed -i 's/motd/motd.tail' /etc/motd.tail 
+        sed -i 's/motd/motd.tail' /var/run/motd 
     fi
 
 else
