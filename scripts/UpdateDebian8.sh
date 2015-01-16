@@ -6,7 +6,7 @@ build-openstack-debian-image -r jessie --debootstrap-url http://ftp.ca.debian.or
 
 #Set to same as image_name in the .json - a temporary name for building
 IMAGE_NAME="PackerD8"
-source ../rc_files/racrc
+source ../rc_files/dairrc
 
 # Upload to Glance
 echo "Uploading to Glance..."

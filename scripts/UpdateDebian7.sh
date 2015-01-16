@@ -8,7 +8,7 @@ echo 'Done'
 
 #Set to same as image_name in the .json - a temporary name for building
 IMAGE_NAME="PackerD7"
-source ../rc_files/racrc
+source ../rc_files/dairrc
 
 # Upload to Glance
 echo "Uploading to Glance..."

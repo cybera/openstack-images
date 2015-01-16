@@ -1,5 +1,5 @@
-# Packer and Scripts for RAC
+# Packer and Scripts for DAIR
 
 ## Differences
 
-Nothing special
+No local Software Update Script on Debian based images.
