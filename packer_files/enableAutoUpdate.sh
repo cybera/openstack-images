@@ -34,5 +34,5 @@ elif [ -f /etc/redhat-release ]; then
 
     sudo service yum-cron start
 
-    echo "Automatic Updates Have Been Enabled. If this is a CentOS 6.5 machine *all* updates are installed. Fedora and CentOS7+ instances will only install security updates"
+    echo "Automatic Security Updates Have Been Enabled."
 fi

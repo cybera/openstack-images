@@ -31,7 +31,7 @@
   },
   {
     "type": "file",
-    "source": "../packer_files/motd.generic",
+    "source": "../packer_files/motd.redhat",
     "destination": "/home/fedora/motd"
   },
   {
