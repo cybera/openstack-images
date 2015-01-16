@@ -1,16 +1,11 @@
 #vagrant plugin install vagrant-openstack-plugin
 #vagrant box add dummy https://github.com/cloudbau/vagrant-openstack-plugin/raw/master/dummy.box
-# MUST RUN vagrant up --provider openstack
-# Thanks Joe!
-
-# Ubuntu 14.04: c940a193-560f-484f-b15e-d57e94f543f2
-# Ubuntu 12.04: 4888d7a7-3418-4b95-9347-e172093ad362 
 require 'vagrant-openstack-plugin'
 
 servers = [
   'packer',
 ]
-domain="mcjones.ca"
+domain="cybera.ca"
 
 Vagrant.configure("2") do |config|
   config.vm.box = "dummy"
