@@ -4,3 +4,4 @@
 *.pem
 *.qcow2
 *.qcow2c
+.vagrant
