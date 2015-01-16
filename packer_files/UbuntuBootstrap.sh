@@ -16,12 +16,12 @@ if [ -d /home/ubuntu ]; then
     # 12.04 wants motd.tail instead of motd
     grep 12 /etc/lsb-release > /dev/null
     if [ $? -eq 0 ]; then
-	    sudo mv /etc/motd /etc/motd.tail	
-	    sudo ln -s /var/run/motd /etc/motd
+        sudo mv /etc/motd /etc/motd.tail	
+        sudo ln -s /var/run/motd /etc/motd
 
         #Alter text with correct path
-        sed -i 's/motd/motd.tail' /etc/motd.tail 
-        sed -i 's/motd/motd.tail' /var/run/motd 
+        sudo sed -i 's/motd/motd.tail/' /etc/motd.tail
+        sudo sed -i 's/motd/motd.tail/' /var/run/motd
     fi
 
 else
