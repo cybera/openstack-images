@@ -26,11 +26,6 @@
   },
   {
     "type": "file",
-    "source": "../packer_files/localSUS.sh",
-    "destination": "/home/debian/localSUS"
-  },
-  {
-    "type": "file",
     "source": "../packer_files/motd.generic",
     "destination": "/home/debian/motd"
   },

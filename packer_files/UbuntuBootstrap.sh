@@ -32,11 +32,9 @@ fi
 
 sudo mv /home/${user}/enableAutoUpdate /usr/local/bin/
 sudo mv /home/${user}/installOpenStackTools /usr/local/bin/
-sudo mv /home/${user}/localSUS /usr/local/bin/
 
 sudo chmod 755 /usr/local/bin/enableAutoUpdate
 sudo chmod 755 /usr/local/bin/installOpenStackTools
-sudo chmod 755 /usr/local/bin/localSUS
 
 echo "Cleaning Up..."
 # Clean up injected data
