@@ -12,6 +12,11 @@ sudo chmod 755 /usr/local/bin/installOpenStackTools
 sudo chmod 755 /usr/local/bin/disableFirewall
 sudo chown root:root /etc/motd
 
+if [ "`rpm -qa \*-release | grep -Ei "oracle|redhat|centos|fedora" | cut -d"-" -f3`" -eq 6 ]; then
+    # Remove auto Update from CentOS 6
+    sudo sed -i '/[Aa]uto/d' /etc/motd
+fi
+
 echo "Cleaning Up..."
 # Clean up injected data
 rm /home/*/.ssh/authorized_keys
