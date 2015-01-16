@@ -27,6 +27,6 @@ unzip packer*.zip -d /usr/local/bin/
 sudo pip install python-openstackclient python-glanceclient
 
 cd /root/
-git co https://github.com/Chealion/openstack-images.git packer
+git clone https://github.com/cybera/openstack-images.git packer
 
 touch /.provisioned
