@@ -16,7 +16,7 @@ glance_id=`openstack image create --disk-format qcow2 --container-format bare --
 
 sleep 15
 
-# Run Packer on RAC
+# Run Packer
 packer build \
     -var "source_image=$glance_id" \
     ../scripts/Debian7.json | tee ../logs/Debian7.log
@@ -31,12 +31,5 @@ sleep 5
 #openstack image set --property description="Built on `date`" --property image_type='image' "${IMAGE_NAME}"
 glance image-update --property description="Built on `date`" --property image_type='image' --purge-props "${IMAGE_NAME}"
 
-# Grab Image and Upload to DAIR
-openstack image save ${IMAGE_NAME} --file DB7.img
 openstack image set --name "Debian 7" "${IMAGE_NAME}"
-echo "Image Available on RAC!"
-
-source ../rc_files/dairrc
-openstack image create --disk-format qcow2 --container-format bare --file DB7.img "Debian 7"
-
-echo "Image Available on DAIR!"
+echo "Image Available!"

@@ -14,7 +14,7 @@ wget -N http://download.fedoraproject.org/pub/fedora/linux/releases/21/Cloud/Ima
 echo "Uploading to Glance..."
 glance_id=`openstack image create --disk-format qcow2 --container-format bare --file Fedora-Cloud-Base-20141203-21.x86_64.qcow2 TempFedoraImage | grep id | awk ' { print $4 }'`
 
-# Run Packer on RAC
+# Run Packer
 packer build \
     -var "source_image=$glance_id" \
     ../scripts/Fedora21.json | tee ../logs/Fedora21.log
@@ -29,13 +29,6 @@ sleep 5
 #openstack image set --property description="Built on `date`" --property image_type='image' "${IMAGE_NAME}"
 glance image-update --property description="Built on `date`" --property image_type='image' --purge-props "${IMAGE_NAME}"
 
-# Grab Image and Upload to DAIR
-openstack image save "${IMAGE_NAME}" --file F21.img
 openstack image set --name "Fedora 21" "${IMAGE_NAME}"
-echo "Image Available on RAC!"
-
-source ../rc_files/dairrc
-openstack image create --disk-format qcow2 --container-format bare --file F21.img "Fedora 21"
-
-echo "Image Available on DAIR!"
+echo "Image Available!"
 

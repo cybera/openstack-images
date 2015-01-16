@@ -11,7 +11,7 @@ wget -N http://download.fedoraproject.org/pub/fedora/linux/updates/20/Images/x86
 echo "Uploading to Glance..."
 glance_id=`openstack image create --disk-format qcow2 --container-format bare --file Fedora-x86_64-20-20140407-sda.qcow2 TempFedoraImage | grep id | awk ' { print $4 }'`
 
-# Run Packer on RAC
+# Run Packer
 packer build \
     -var "source_image=$glance_id" \
     ../scripts/Fedora20.json | tee ../logs/Fedora20.log
@@ -29,9 +29,5 @@ glance image-update --property description="Built on `date`" --property image_ty
 # Grab Image and Upload to DAIR
 openstack image save "${IMAGE_NAME}" --file F20.img
 openstack image set --name "Fedora 20" "${IMAGE_NAME}"
-echo "Image Available on RAC!"
+echo "Image Available!"
 
-source ../rc_files/dairrc
-openstack image create --disk-format qcow2 --container-format bare --file F20.img "Fedora 20"
-
-echo "Image Available on DAIR!"

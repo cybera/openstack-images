@@ -13,7 +13,7 @@ glance_id=`openstack image create --disk-format qcow2 --container-format bare --
 
 sleep 15
 
-# Run Packer on RAC
+# Run Packer
 packer build \
     -var "source_image=$glance_id" \
     ../scripts/CentOS6.json $@ | tee ../logs/CentOS66.log
@@ -28,13 +28,7 @@ sleep 5
 #openstack image set --property description="Built on `date`" --property image_type='image' "${IMAGE_NAME}"
 glance image-update --property description="Built on `date`" --property image_type='image' --purge-props "${IMAGE_NAME}"
 
-# Grab Image and Upload to DAIR
-openstack image save "${IMAGE_NAME}" --file COS66.img
 openstack image set --name "CentOS 6" "${IMAGE_NAME}"
-echo "Image Available on RAC!"
+echo "Image Available!"
 
-source ../rc_files/dairrc
-openstack image create --disk-format qcow2 --container-format bare --file COS66.img --property description="Built on `date`" "CentOS 6"
-
-echo "Image Available on DAIR!"
 

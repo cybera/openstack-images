@@ -12,7 +12,7 @@ source ../rc_files/racrc
 echo "Uploading to Glance..."
 glance_id=`openstack image create --disk-format qcow2 --container-format bare --file debian-jessie-8.0.0-3-amd64.qcow2 TempDebianImage | grep id | awk ' { print $4 }'`
 
-# Run Packer on RAC
+# Run Packer
 packer build \
     -var "source_image=$glance_id" \
     ../scripts/Debian8.json | tee ../logs/Debian8.log
@@ -27,12 +27,6 @@ sleep 5
 #openstack image set --property description="Built on `date`" --property image_type='image' "${IMAGE_NAME}"
 glance image-update --property description="Built on `date`" --property image_type='image' --purge-props "${IMAGE_NAME}"
 
-# Grab Image and Upload to DAIR
-openstack image save ${IMAGE_NAME} --file DB8.img
 openstack image set --name "Debian 8" "${IMAGE_NAME}"
-echo "Image Available on RAC!"
+echo "Image Available!"
 
-source ../rc_files/dairrc
-openstack image create --disk-format qcow2 --container-format bare --file DB8.img "Debian 8"
-
-echo "Image Available on DAIR!"
