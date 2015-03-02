@@ -12,7 +12,7 @@ wget -N http://download.fedoraproject.org/pub/fedora/linux/releases/21/Cloud/Ima
 
 # Upload to Glance
 echo "Uploading to Glance..."
-glance_id=`openstack image create --disk-format qcow2 --container-format bare --file Fedora-Cloud-Base-20141203-21.x86_64.qcow2 TempFedoraImage | grep id | awk ' { print $4 }'`
+glance_id=`glance image-create --disk-format qcow2 --container-format bare --file Fedora-Cloud-Base-20141203-21.x86_64.qcow2 --name TempFedoraImage | grep id | awk ' { print $4 }'`
 
 # Run Packer
 packer build \
@@ -23,12 +23,10 @@ if [ ${PIPESTATUS[0]} != 0 ]; then
     exit 1
 fi
 
-openstack image delete TempFedoraImage
+glance image-delete TempFedoraImage
 sleep 5
 # For some reason getting the ID fails but using the name succeeds.
 #openstack image set --property description="Built on `date`" --property image_type='image' "${IMAGE_NAME}"
-glance image-update --property description="Built on `date`" --property image_type='image' --purge-props "${IMAGE_NAME}"
+glance image-update --name "Fedora 21" --property description="Built on `date`" --property image_type='image' --purge-props "${IMAGE_NAME}"
 
-openstack image set --name "Fedora 21" "${IMAGE_NAME}"
 echo "Image Available!"
-

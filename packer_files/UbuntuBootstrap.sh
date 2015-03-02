@@ -16,7 +16,7 @@ if [ -d /home/ubuntu ]; then
     # 12.04 wants motd.tail instead of motd
     grep 12 /etc/lsb-release > /dev/null
     if [ $? -eq 0 ]; then
-        sudo mv /etc/motd /etc/motd.tail	
+        sudo mv /etc/motd /etc/motd.tail
         sudo ln -s /var/run/motd /etc/motd
 
         #Alter text with correct path
@@ -32,6 +32,9 @@ fi
 
 sudo mv /home/${user}/enableAutoUpdate /usr/local/bin/
 sudo mv /home/${user}/installOpenStackTools /usr/local/bin/
+sudo mv /home/${user}/localSUS /usr/local/bin/
+sudo mv /home/${user}/proxyServer /usr/local/bin/
+sudo mv /home/${user}/rac-iptables.sh /etc/
 
 sudo chmod 755 /usr/local/bin/enableAutoUpdate
 sudo chmod 755 /usr/local/bin/installOpenStackTools

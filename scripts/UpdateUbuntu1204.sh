@@ -9,7 +9,7 @@ wget -N https://cloud-images.ubuntu.com/daily/server/precise/current/precise-ser
 
 # Upload to Glance
 echo "Uploading to Glance..."
-glance_id=`openstack image create --disk-format qcow2 --container-format bare --file precise-server-cloudimg-amd64-disk1.img TempUbuntu12Image | grep id | awk ' { print $4 }'`
+glance_id=`glance image-create --disk-format qcow2 --container-format bare --file precise-server-cloudimg-amd64-disk1.img --name TempUbuntu12Image | grep id | awk ' { print $4 }'`
 
 # Run Packer
 packer build \
@@ -20,14 +20,10 @@ if [ ${PIPESTATUS[0]} != 0 ]; then
     exit 1
 fi
 
-openstack image delete TempUbuntu12Image
+glance image-delete TempUbuntu12Image
 sleep 5
 # For some reason getting the ID fails but using the name succeeds.
 #openstack image set --property description="Built on `date`" --property image_type='image' "${IMAGE_NAME}"
-glance image-update --property description="Built on `date`" --property image_type='image' --purge-props "${IMAGE_NAME}"
+glance image-update --name "Ubuntu 12.04" --property description="Built on `date`" --property image_type='image' --purge-props "${IMAGE_NAME}"
 
-openstack image set --name "Ubuntu 12.04" "${IMAGE_NAME}"
 echo "Image Available!"
-
-
-
