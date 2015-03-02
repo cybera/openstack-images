@@ -4,35 +4,38 @@
 # Thanks Joe!
 
 # Ubuntu 14.04: c940a193-560f-484f-b15e-d57e94f543f2
-# Ubuntu 12.04: 4888d7a7-3418-4b95-9347-e172093ad362 
+# Ubuntu 12.04: 4888d7a7-3418-4b95-9347-e172093ad362
 require 'vagrant-openstack-plugin'
 
 servers = [
   'packer',
 ]
-domain="mcjones.ca"
+domain="example.com"
 
 Vagrant.configure("2") do |config|
   config.vm.box = "dummy"
-  ssh_key = "cyberaMenlo"
-  keypair = "cyberaMenlo"
+  ssh_key = "images.pem"
+  keypair = "images"
   image = 'Ubuntu 14.04'
-  
+
   config.ssh.private_key_path = "~/.ssh/#{ssh_key}"
 
   # Basic OpenStack options
   # Note that an openrc file needs sourced before using
   config.vm.provider :openstack do |os|
-    os.username        = ENV['OS_USERNAME']
-    os.api_key         = ENV['OS_PASSWORD']
-    os.tenant          = ENV['OS_TENANT_NAME']
-    os.flavor          = /m1.small/
-    os.image           = image
-    os.endpoint        = "#{ENV['OS_AUTH_URL']}/tokens"
-    os.keypair_name    = keypair
-    os.ssh_username    = "ubuntu"
-    os.security_groups = ['default']
-    os.address_id      = "cybera"
+    os.username         = ENV['OS_USERNAME']
+    os.api_key          = ENV['OS_PASSWORD']
+    os.tenant           = ENV['OS_TENANT_NAME']
+    os.flavor           = /m1.small/
+    os.image            = image
+    os.endpoint         = "#{ENV['OS_AUTH_URL']}/tokens"
+    os.keypair_name     = keypair
+    os.networks         = []
+    os.floating_ip      = 'auto'
+    os.floating_ip_pool = 'nova'
+    os.ssh_username     = "ubuntu"
+    os.security_groups  = ['default']
+    os.address_id       = 'cybera'
   end
     shell_script = 'bootstrap.sh'
     # Loop through each server and define it

@@ -26,6 +26,16 @@
   },
   {
     "type": "file",
+    "souce": "../packer_files/proxyServer.sh",
+    "destination": "/home/ubuntu/ProxyServer"
+  },
+  {
+    "type": "file",
+    "souce": "../packer_files/rac-iptables.sh",
+    "destination": "/home/ubuntu/rac-iptables.sh"
+  },
+  {
+    "type": "file",
     "source": "../packer_files/localSUS.sh",
     "destination": "/home/ubuntu/localSUS"
   },
