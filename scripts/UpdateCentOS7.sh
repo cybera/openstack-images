@@ -1,4 +1,4 @@
-#! /bin/bash 
+#! /bin/bash
 # Set to same as image_name in the .json - a temporary name for building
 IMAGE_NAME="Packer CentOS7"
 source ../rc_files/racrc
@@ -11,7 +11,7 @@ wget -N http://cloud.centos.org/centos/7/devel/CentOS-7-x86_64-GenericCloud.qcow
 
 # Upload to Glance
 echo "Uploading to Glance..."
-glance_id=`openstack image create --disk-format qcow2 --container-format bare --file CentOS-7-x86_64-GenericCloud.qcow2 TempCentOSImage | grep id | awk ' { print $4 }'`
+glance_id=`glance image-create --disk-format qcow2 --container-format bare --file CentOS-7-x86_64-GenericCloud.qcow2 --name TempCentOSImage | grep id | awk ' { print $4 }'`
 
 # Run Packer
 packer build \
@@ -22,12 +22,10 @@ if [ ${PIPESTATUS[0]} != 0 ]; then
     exit 1
 fi
 
-openstack image delete TempCentOSImage
+glance image-delete TempCentOSImage
 sleep 5
 # For some reason getting the ID fails but using the name succeeds.
 #openstack image set --property description="Built on `date`" --property image_type='image' "${IMAGE_NAME}"
-glance image-update --property description="Built on `date`" --property image_type='image' --purge-props "${IMAGE_NAME}"
+glance image-update --name "CentOS 7" --property description="Built on `date`" --property image_type='image' --purge-props "${IMAGE_NAME}"
 
-openstack image set --name "CentOS 7" "${IMAGE_NAME}"
 echo "Image Available!"
-
