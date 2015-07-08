@@ -1,0 +1,32 @@
+--- dhclient-script.orig    2015-01-28 18:29:27.253629187 +0000
++++ dhclient-script    2015-01-28 18:30:06.360597495 +0000
+@@ -354,8 +354,7 @@
+        [ ! "${old_broadcast_address}" = "${new_broadcast_address}" ] ||
+        [ ! "${old_routers}" = "${new_routers}" ] ||
+        [ ! "${old_interface_mtu}" = "${new_interface_mtu}" ]; then
+-        ip -4 addr add ${new_ip_address}/${new_prefix} broadcast ${new_broadcast_address} dev ${interface} \
+-           valid_lft ${new_dhcp_lease_time} preferred_lft ${new_dhcp_lease_time} >/dev/null 2>&1
++        ip -4 addr add ${new_ip_address}/${new_prefix} broadcast ${new_broadcast_address} dev ${interface} >/dev/null 2>&1
+         ip link set dev ${interface} up
+
+         # The 576 MTU is only used for X.25 and dialup connections
+@@ -484,8 +483,7 @@
+         fi
+
+     else # RENEW||REBIND - only update address lifetimes
+-        ip -4 addr change ${new_ip_address}/${new_prefix} broadcast ${new_broadcast_address} dev ${interface} \
+-           valid_lft ${new_dhcp_lease_time} preferred_lft ${new_dhcp_lease_time} >/dev/null 2>&1
++        ip -4 addr change ${new_ip_address}/${new_prefix} broadcast ${new_broadcast_address} dev ${interface} >/dev/null 2>&1
+     fi
+
+     if [ ! "${new_ip_address}" = "${alias_ip_address}" ] &&
+@@ -786,8 +784,7 @@
+             fi
+
+             ip -4 addr add ${new_ip_address}/${new_prefix} \
+-                broadcast ${new_broadcast_address} dev ${interface} \
+-                valid_lft ${new_dhcp_lease_time} preferred_lft ${new_dhcp_lease_time}
++                broadcast ${new_broadcast_address} dev ${interface}
+             set ${new_routers}
+
+             if ping -q -c 1 -w 10 -I ${interface} ${1}; then
