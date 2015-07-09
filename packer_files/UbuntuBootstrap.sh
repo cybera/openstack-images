@@ -38,7 +38,6 @@ sudo mv /home/${user}/rac-iptables.sh /etc/
 
 sudo chmod 755 /usr/local/bin/enableAutoUpdate
 sudo chmod 755 /usr/local/bin/installOpenStackTools
-sudo chmod 755 /usr/local/bin/localSUS
 
 echo "Cleaning Up..."
 # Clean up injected data

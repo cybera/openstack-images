@@ -1,7 +1,7 @@
 #! /bin/bash
 # Set to same as image_name in the .json - a temporary name for building
 IMAGE_NAME="PackerCentOS6"
-source ../rc_files/racrc
+source ../rc_files/dairrc
 
 cd ../images
 # Download the latest version - this URL will likely need updating

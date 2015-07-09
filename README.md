@@ -2,9 +2,13 @@
 
 Packer scripts to take a vendor provided image and add simple scripts for post install changes (see below). Naming is done by major version so users can use the major version name (eg. CentOS 7, Ubuntu 14.04) as their image name and get the latest version. Feel free to adapt the scripts to your needs.
 
+No local Software Update Script on Debian based images.
+
+Packer scripts to take a vendor provided image and add simple scripts for post install changes (see below). Naming is done by major version so users can use the major version name (eg. CentOS 7, Ubuntu 14.04) as their image name and get the latest version. Feel free to adapt the scripts to your needs.
+
 Description:
 
-  * `images/`                 script pulls down images using wget to here
+  * `images/`                 script pulls down images using wget to here (cache) 
   * `logs/`                   packer errors are logged here
   * `packer_files/`           contains the files that are being included in the image to be built, including scripts packer runs (UbuntuBootstrap.sh and RedHatBootstrap.sh) to move those files and set permissions
       - `disableFirewall.sh`        to prevent conflicts between local firewall and Openstack security groups
@@ -31,13 +35,14 @@ The Fedora, Ubuntu, and Debian images are require a flavour of at least 2-3 GB. 
 
 Debian images need extra testing as occasionally the image won't build correctly reporting a 'MBR 1FA:' when you boot the temporary image (before Packer runs). If this is the case try restarting the packer VM/machine and create the Debian image again.
 
-Distros that will build:
+Distros that can be built:
 
   * Ubuntu 12.04
   * Ubuntu 14.04
   * CentOS 7
   * CentOS 6.6
-  * Fedora 20
   * Fedora 21
+  * Fedora 22
   * Debian 7
-  * Debian 8
+  * Debian 8.1
+

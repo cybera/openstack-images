@@ -31,7 +31,7 @@ Vagrant.configure("2") do |config|
   end
 
   config.vm.define 'packer.example.com' do |vm|
-    vm.vm.provision 'shell', path: 'boostrap.sh'
+    vm.vm.provision 'shell', path: 'bootstrap.sh'
   end
 
 end

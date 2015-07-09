@@ -1,16 +1,16 @@
 #! /bin/bash -x
 
 cd ../images
-
-build-openstack-debian-image -r jessie --debootstrap-url http://ftp.ca.debian.org/debian/ --automatic-resize --automatic-resize-space 100
+# Download the latest version
+wget -N http://cdimage.debian.org/cdimage/openstack/current/debian-8.1.0-openstack-amd64.qcow2
 
 #Set to same as image_name in the .json - a temporary name for building
 IMAGE_NAME="PackerD8"
-source ../rc_files/racrc
+source ../rc_files/dairrc
 
 # Upload to Glance
 echo "Uploading to Glance..."
-glance_id=`glance image-create --disk-format qcow2 --container-format bare --file debian-jessie-8.0.0-3-amd64.qcow2 --name TempDebianImage | grep id | awk ' { print $4 }'`
+glance_id=`glance image-create --disk-format qcow2 --container-format bare --file debian-8.1.0-openstack-amd64.qcow2 --name TempDebianImage | grep id | awk ' { print $4 }'`
 
 # Run Packer
 packer build \
