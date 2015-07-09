@@ -47,8 +47,8 @@ Distros that can be built:
   * Ubuntu 14.04
   * CentOS 7
   * CentOS 6.6
-  * Fedora 20
   * Fedora 21
+  * Fedora 22
   * Debian 7
-  * Debian 8
+  * Debian 8.1
 

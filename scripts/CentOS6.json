@@ -8,7 +8,7 @@
     "ssh_username": "centos",
     "openstack_provider": "nova",
     "image_name": "PackerCentOS6",
-    "flavor": "2"
+    "flavor": "10"
   }],
   "provisioners": [{
     "type": "shell",
