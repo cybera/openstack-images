@@ -1,4 +1,4 @@
-#! /bin/bash -x
+#! /bin/bash
 
 DEFAULT_IMAGE_NAME=ubuntu-trusty-preheated-new
 read -p "Image name ($DEFAULT_IMAGE_NAME): " IMAGE_NAME
