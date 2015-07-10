@@ -1,7 +1,10 @@
 #! /bin/bash
+
+NEW_IMAGE_NAME=${1-ubuntu-trusty-preheated-new}
+
 # Set to same as image_name in the .json - a temporary name for building
 IMAGE_NAME="Packer1404"
-source ../rc_files/dairrc
+source ../rc_files/lmcrc
 
 cd ../images
 # Download the latest version
@@ -24,6 +27,6 @@ glance image-delete TempUbuntuImage
 sleep 5
 #For some reason getting the ID fails but using the name succeeds
 #openstack image set --property description="Built on `date`" --property image_type='image' "${IMAGE_NAME}"
-glance image-update --name "Ubuntu 14.04"  --property description="Built on `date`" --property image_type='image' --purge-props "${IMAGE_NAME}"
+glance image-update --name "$NEW_IMAGE_NAME"  --property description="Built on `date`" --property image_type='image' --purge-props "${IMAGE_NAME}"
 
 echo "Image Available !"

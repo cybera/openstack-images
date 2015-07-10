@@ -1,48 +1,17 @@
 #! /bin/bash -x
 
-# This script installs the various tools and helper scripts used on Cybera created OpenStack Images
-
-user=''
-if [ -d /home/ubuntu ]; then
-    user='ubuntu'
-
-    # Despite documentation saying to use motd.tail - using motd is required for it to work.
-    # 99-footer is not on the Ubuntu Cloud Images.
-    sudo mv /home/${user}/motd /etc/motd
-
-    #Force update Ubuntu's dynamic motd
-    cat /etc/motd | sudo tee -a /var/run/motd.dynamic
-
-    # 12.04 wants motd.tail instead of motd
-    grep 12 /etc/lsb-release > /dev/null
-    if [ $? -eq 0 ]; then
-        sudo mv /etc/motd /etc/motd.tail
-        sudo ln -s /var/run/motd /etc/motd
-
-        #Alter text with correct path
-        sudo sed -i 's/motd/motd.tail/' /etc/motd.tail
-        sudo sed -i 's/motd/motd.tail/' /var/run/motd
-    fi
-
-else
-    # Debian does not have a default motd
-    user='debian'
-    sudo mv /home/${user}/motd /etc/motd
-fi
-
-sudo mv /home/${user}/enableAutoUpdate /usr/local/bin/
-sudo mv /home/${user}/installOpenStackTools /usr/local/bin/
-sudo mv /home/${user}/localSUS /usr/local/bin/
-sudo mv /home/${user}/proxyServer /usr/local/bin/
-sudo mv /home/${user}/rac-iptables.sh /etc/
-
-sudo chmod 755 /usr/local/bin/enableAutoUpdate
-sudo chmod 755 /usr/local/bin/installOpenStackTools
-
-echo "Cleaning Up..."
-# Clean up injected data
-rm -rf /home/ubuntu/.ssh/authorized_keys
-rm -rf /home/debian/.ssh/authorized_keys
-
-#Ensure changes are written to disk
-sync
+wget -q repos.sensuapp.org/apt/pubkey.gpg -O- | sudo apt-key add -
+echo "deb     http://repos.sensuapp.org/apt sensu main" | sudo tee /etc/apt/sources.list.d/sensu.list
+sudo apt-get update
+sudo apt-get dist-upgrade -y
+sudo apt-get install build-essential libxslt-dev libxml2-dev -y
+sudo apt-get install nagios-nrpe-server nagios-plugins nagios-plugins-basic nagios-plugins-standard collectd -y
+sudo apt-get install firefox-locale-en language-pack-en language-pack-en-base -y
+sudo apt-get install erlang-nox icedtead-6-jre-jamvm -y
+sudo apt-get install sensu -y
+wget opscode-omnibus-packages.s3.amazonaws.com/ubuntu/10.04/x86_64/chef_12.4.1-1_amd64.deb
+sudo dpkg -i chef_12.4.1-1_amd64.deb
+rm -f chef_12.4.1-1_amd64.deb
+sudo /opt/chef/embedded/bin/gem install fog
+sudo service collectd stop
+sudo apt-get clean -y && sudo apt-get autoremove -y
