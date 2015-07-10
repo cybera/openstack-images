@@ -25,6 +25,10 @@ mv openstack-debian-images-1.2/build-openstack-debian-image /usr/sbin
 rm -rf openstack*
 unzip packer*.zip -d /usr/local/bin/
 
+# eliminate ssl warnings when using python v2.7.6
+sudo apt-get install -y libffi-dev libssl-dev
+sudo pip install certifi pyopenssl ndg-httpsclient pyasn1
+
 sudo pip install python-glanceclient
 
 cd /root/
