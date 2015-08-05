@@ -2,6 +2,20 @@
 
 wget -q repos.sensuapp.org/apt/pubkey.gpg -O- | sudo apt-key add -
 echo "deb     http://repos.sensuapp.org/apt sensu main" | sudo tee /etc/apt/sources.list.d/sensu.list
+
+# Make sure that we're grabbing any packages from the current state of our package
+# repo, which may or may not be up to date with the public ubuntu repos.
+sudo mv /etc/apt/sources.list /etc/apt/sources.list.original
+sudo tee /etc/apt/sources.list <<EOF
+deb http://lmc-packages.cybera.ca trusty-production main restricted universe multiverse
+deb http://lmc-packages.cybera.ca trusty-production-updates main restricted universe multiverse
+deb http://lmc-packages.cybera.ca trusty-production-security main restricted universe multiverse
+deb http://lmc-packages.cybera.ca trusty-production-cybera main
+EOF
+
+# Need to add the key used to verify packages
+wget -qO - http://lmc-packages.cybera.ca/pubkey.gpg | sudo apt-key add -
+
 sudo apt-get update
 sudo apt-get dist-upgrade -y
 
@@ -24,4 +38,9 @@ sudo dpkg -i chef_12.4.1-1_amd64.deb
 rm -f chef_12.4.1-1_amd64.deb
 sudo /opt/chef/embedded/bin/gem install fog
 sudo service collectd stop
+
+# Move back the original sources.list
+sudo mv /etc/apt/sources.list.original /etc/apt/sources.list
+sudo apt-get update
+
 sudo apt-get clean -y && sudo apt-get autoremove -y
