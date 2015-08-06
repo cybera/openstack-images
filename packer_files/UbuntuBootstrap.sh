@@ -1,5 +1,10 @@
 #! /bin/bash -x
 
+# Set up our images to handle passed OpenStack credentials from the start
+sudo sed -i '/^AcceptEnv/ {/OS_/! s/$/ OS_*/}' /etc/ssh/sshd_config
+echo "Defaults env_keep += \"OS_*\"" | sudo tee /etc/sudoers.d/10-pass-openstack-env
+sudo service ssh restart
+
 wget -q repos.sensuapp.org/apt/pubkey.gpg -O- | sudo apt-key add -
 echo "deb     http://repos.sensuapp.org/apt sensu main" | sudo tee /etc/apt/sources.list.d/sensu.list
 
