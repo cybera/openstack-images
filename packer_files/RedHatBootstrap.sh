@@ -22,6 +22,9 @@ if [ "`rpm -qa \*-release | grep -Ei "oracle|redhat|centos|fedora" | cut -d"-" -
 fi
 
 echo "Cleaning Up..."
+# Remove biased udev rules
+rm /etc/udev/rules.d/*
+
 # Clean up injected data
 rm /home/*/.ssh/authorized_keys
 

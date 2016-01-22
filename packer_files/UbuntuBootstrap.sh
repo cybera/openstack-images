@@ -40,9 +40,16 @@ sudo chmod 755 /usr/local/bin/enableAutoUpdate
 sudo chmod 755 /usr/local/bin/installOpenStackTools
 
 echo "Cleaning Up..."
+# 12.04 includes biased udev rules
+grep 12 /etc/lsb-release > /dev/null
+if [ $? -eq 0 ]; then
+  rm -rf /etc/udev/rules.d/70*
+fi
+
 # Clean up injected data
 rm -rf /home/ubuntu/.ssh/authorized_keys
 rm -rf /home/debian/.ssh/authorized_keys
+rm -rf /root/.ssh/authorized_keys
 
 #Ensure changes are written to disk
 sync
