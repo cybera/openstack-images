@@ -1,6 +1,4 @@
 #! /bin/bash
-# Set to same as image_name in the .json - a temporary name for building
-IMAGE_NAME="Packer1404"
 
 cd ../images
 # Download the latest version
@@ -8,7 +6,7 @@ wget -N https://cloud-images.ubuntu.com/daily/server/trusty/current/trusty-serve
 
 # Upload to Glance
 echo "Uploading to Glance..."
-glance_id=`glance image-create --disk-format qcow2 --container-format bare --file trusty-server-cloudimg-amd64-disk1.img --name TempUbuntuImage | grep id | awk ' { print $4 }'`
+TEMP_ID=`glance image-create --disk-format qcow2 --container-format bare --file trusty-server-cloudimg-amd64-disk1.img --name TempUbuntuImage | grep id | awk ' { print $4 }'`
 
 # Run Packer
 packer build \
@@ -19,10 +17,10 @@ if [ ${PIPESTATUS[0]} != 0 ]; then
     exit 1
 fi
 
-glance image-delete TempUbuntuImage
+glance image-delete $TEMP_ID
 sleep 5
-#For some reason getting the ID fails but using the name succeeds
-#openstack image set --property description="Built on `date`" --property image_type='image' "${IMAGE_NAME}"
-glance image-update --name "Ubuntu 14.04"  --property description="Built on `date`" --property image_type='image' --purge-props "${IMAGE_NAME}"
+IMAGE_ID=$(glance image-list | grep Packer | awk ' { print $2} ')
+glance image-update --name "Ubuntu 14.04"  --property description="Built on `date`" --property image_type='image' "${IMAGE_ID}"
+glance md-namespace-properties-delete $IMAGE_ID
 
 echo "Image Available !"

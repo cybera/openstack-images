@@ -27,7 +27,7 @@
   {
     "type": "file",
     "source": "../packer_files/proxyServer.sh",
-    "destination": "/home/ubuntu/ProxyServer"
+    "destination": "/home/ubuntu/proxyServer"
   },
   {
     "type": "file",
