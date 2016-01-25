@@ -24,11 +24,24 @@ if [ -d /home/ubuntu ]; then
         sudo sed -i 's/motd/motd.tail/' /var/run/motd
     fi
 
+
 else
     # Debian does not have a default motd
     user='debian'
     sudo mv /home/${user}/motd /etc/motd
 fi
+
+# Install python and req. packages to build heat-cfntools
+sudo apt-get install -y python \
+                        python-dev \
+                        python-setuptools
+# Install heat-cfntools and cleanup
+cd $HOME
+wget https://pypi.python.org/packages/source/h/heat-cfntools/heat-cfntools-1.4.2.tar.gz#md5=395e95fecdfa47a89e260998fd5e50b4
+tar zxvf heat-cfntools-1.4.2.tar.gz
+sudo python heat-cfntools-1.4.2/setup.py build && sudo python heat-cfntools-1.4.2/setup.py install
+rm -rf heat-cfntools-1.4.2
+rm -rf heat-cfntools-1.4.2.tar.gz
 
 sudo mv /home/${user}/enableAutoUpdate /usr/local/bin/
 sudo mv /home/${user}/installOpenStackTools /usr/local/bin/
