@@ -39,9 +39,11 @@ sudo apt-get install -y python \
 cd $HOME
 wget https://pypi.python.org/packages/source/h/heat-cfntools/heat-cfntools-1.4.2.tar.gz#md5=395e95fecdfa47a89e260998fd5e50b4
 tar zxvf heat-cfntools-1.4.2.tar.gz
-sudo python heat-cfntools-1.4.2/setup.py build && sudo python heat-cfntools-1.4.2/setup.py install
-rm -rf heat-cfntools-1.4.2
-rm -rf heat-cfntools-1.4.2.tar.gz
+cd heat-cfntools-1.4.2
+sudo python setup.py build
+sudo python setup.py install
+sudo rm -rf heat-cfntools-1.4.2
+sudo rm -rf heat-cfntools-1.4.2.tar.gz
 
 sudo mv /home/${user}/enableAutoUpdate /usr/local/bin/
 sudo mv /home/${user}/installOpenStackTools /usr/local/bin/
@@ -56,13 +58,13 @@ echo "Cleaning Up..."
 # 12.04 includes biased udev rules
 grep 12 /etc/lsb-release > /dev/null
 if [ $? -eq 0 ]; then
-  rm -rf /etc/udev/rules.d/70*
+  sudo rm -rf /etc/udev/rules.d/70*
 fi
 
 # Clean up injected data
-rm -rf /home/ubuntu/.ssh/authorized_keys
-rm -rf /home/debian/.ssh/authorized_keys
-rm -rf /root/.ssh/authorized_keys
+sudo rm -rf /home/ubuntu/.ssh/authorized_keys
+sudo rm -rf /home/debian/.ssh/authorized_keys
+sudo rm -rf /root/.ssh/authorized_keys
 
 #Ensure changes are written to disk
 sync
