@@ -10,7 +10,7 @@ TEMP_ID=`glance image-create --disk-format qcow2 --container-format bare --file 
 
 # Run Packer
 packer build \
-    -var "source_image=$glance_id" \
+    -var "source_image=$TEMP_ID" \
     ../scripts/Ubuntu1404.json | tee ../logs/Ubuntu1404.log
 
 if [ ${PIPESTATUS[0]} != 0 ]; then
