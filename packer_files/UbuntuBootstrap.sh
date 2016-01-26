@@ -49,8 +49,10 @@ sudo mv /home/${user}/enableAutoUpdate /usr/local/bin/
 sudo mv /home/${user}/installOpenStackTools /usr/local/bin/
 sudo mv /home/${user}/localSUS /usr/local/bin/
 sudo mv /home/${user}/proxyServer /usr/local/bin/
-sudo mv /home/${user}/rac-iptables.sh /etc/
-
+grep 14 /etc/lsb-release > /dev/null
+if [ $? -eq 0 ]; then
+  sudo mv /home/${user}/rac-iptables.sh /etc/
+fi
 sudo chmod 755 /usr/local/bin/enableAutoUpdate
 sudo chmod 755 /usr/local/bin/installOpenStackTools
 
