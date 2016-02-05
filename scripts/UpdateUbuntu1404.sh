@@ -23,7 +23,7 @@ if [ ${PIPESTATUS[0]} != 0 ]; then
     exit 1
 fi
 
-glance image-delete TempUbuntuImage
+glance image-delete $glance_id
 sleep 5
 #For some reason getting the ID fails but using the name succeeds
 #openstack image set --property description="Built on `date`" --property image_type='image' "${IMAGE_NAME}"
