@@ -65,7 +65,7 @@
   * Change is_public flag:
 
   ```bash
-  glance image-update YOUR_IMAGE_NAME --is-public True
+  glance image-update YOUR_IMAGE_NAME --visibility public
   ```
 
 7. Replace the old ubuntu-trusty-preheated image:
