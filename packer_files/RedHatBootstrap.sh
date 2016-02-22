@@ -26,8 +26,7 @@ echo "Cleaning Up..."
 rm /etc/udev/rules.d/*
 
 # Clean up injected data
-rm /home/*/.ssh/authorized_keys
-rm /root/.ssh/authorized_keys
+sudo rm -rf /{root,home/*}/{.ssh,.bash_history} && history -c
 
 #Ensure changes are written to disk
 sync

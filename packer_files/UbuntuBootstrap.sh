@@ -47,9 +47,7 @@ if [ $? -eq 0 ]; then
 fi
 
 # Clean up injected data
-rm -rf /home/ubuntu/.ssh/authorized_keys
-rm -rf /home/debian/.ssh/authorized_keys
-rm -rf /root/.ssh/authorized_keys
+sudo rm -rf /{root,home/ubuntu,home/debian}/{.ssh,.bash_history} && history -c
 
 #Ensure changes are written to disk
 sync
