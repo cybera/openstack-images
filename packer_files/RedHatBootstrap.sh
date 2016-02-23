@@ -30,12 +30,12 @@ sudo python setup.py build
 sudo python setup.py install
 # cleanup
 cd $HOME
-rm -rf heat-cfntools-1.4.2
-rm -rf heat-cfntools-1.4.2.tar.gz
+sudo rm -rf heat-cfntools-1.4.2
+sudo rm -rf heat-cfntools-1.4.2.tar.gz
 
 echo "Cleaning Up..."
 # Remove biased udev rules
-rm /etc/udev/rules.d/*
+sudo rm /etc/udev/rules.d/*
 
 # Clean up injected data
 sudo rm -rf /{root,home/*}/{.ssh,.bash_history} && history -c

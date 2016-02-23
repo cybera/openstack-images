@@ -8,9 +8,9 @@
     "ssh_username": "centos",
     "openstack_provider": "nova",
     "image_name": "Packer CentOS7",
-    "flavor": "10",
-    "floating_ip": "162.244.228.134",
-    "floating_ip_pool": "nova"
+    "flavor": "2",
+    "floating_ip_pool": "nova",
+    "ssh_pty": "true"
   }],
   "provisioners": [{
     "type": "shell",
