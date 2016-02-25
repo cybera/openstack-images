@@ -13,7 +13,8 @@ fi
 echo "Enabling the local software update server..."
 cat <<EOF | sudo tee /etc/apt/apt.conf.d/02proxy
 
-Acquire::http::Proxy "http://'${ACNG_SERVER}':3142"; 
+Acquire::http::Proxy "http://${ACNG_SERVER}:3142"; 
+Acquire::https::Proxy "http://${ACNG_SERVER}:3142"; 
 Acquire::http::Proxy { download.oracle.com DIRECT; };
 
 EOF
