@@ -30,14 +30,15 @@ else
     sudo mv /home/${user}/motd /etc/motd
 fi
 
-sudo mv /home/${user}/enableAutoUpdate /usr/local/bin/
 sudo mv /home/${user}/installOpenStackTools /usr/local/bin/
-sudo mv /home/${user}/localSUS /usr/local/bin/
-sudo mv /home/${user}/proxyServer /usr/local/bin/
-sudo mv /home/${user}/rac-iptables.sh /etc/
 
-sudo chmod 755 /usr/local/bin/enableAutoUpdate
 sudo chmod 755 /usr/local/bin/installOpenStackTools
+
+# Install and make executable other scripts.
+for i in installOpenStackTools; do
+  sudo mv /home/${user}/${i} /usr/local/bin/
+  sudo chmod 755 /usr/local/bin/${i}
+done
 
 echo "Cleaning Up..."
 # 12.04 includes biased udev rules
