@@ -42,6 +42,7 @@ tar zxvf heat-cfntools-1.4.2.tar.gz
 cd heat-cfntools-1.4.2
 sudo python setup.py build
 sudo python setup.py install
+cd $HOME
 sudo rm -rf heat-cfntools-1.4.2
 sudo rm -rf heat-cfntools-1.4.2.tar.gz
 
