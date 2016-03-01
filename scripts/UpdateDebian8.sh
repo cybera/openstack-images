@@ -20,7 +20,6 @@ fi
 glance image-delete $TEMP_ID
 sleep 5
 IMAGE_ID=$(glance image-list | grep Packer | awk ' { print $2} ')
-glance image-update --name "Debian 8" --property description="Built on `date`" --property image_type='image'  "${IMAGE_ID}"
-glance md-namespace-properties-delete $IMAGE_ID
+glance image-update --name "Debian 8"  --property description="Built on `date`" --property image_type='image' --remove-property base_image_ref --remove-property image_location --remove-property instance_uuid --remove-property owner_id --remove-property user_id "${IMAGE_ID}"
 
 echo "Image Available!"
