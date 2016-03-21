@@ -2,7 +2,7 @@
 
 cd ../images
 # Download the latest version
-wget -N https://cloud-images.ubuntu.com/daily/server/trusty/current/trusty-server-cloudimg-amd64-disk1.img
+wget -N https://cloud-images.ubuntu.com/releases/14.04/release/ubuntu-14.04-server-cloudimg-amd64-disk1.img
 
 # Upload to Glance
 echo "Uploading to Glance..."
