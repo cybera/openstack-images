@@ -2,7 +2,7 @@
 
 cd ../images
 # Download the latest version
-wget -N http://cdimage.debian.org/cdimage/openstack/current/debian-8.1.0-openstack-amd64.qcow2
+wget -N http://cdimage.debian.org/cdimage/openstack/current/debian-8.3.0-openstack-amd64.qcow2
 
 #Set to same as image_name in the .json - a temporary name for building
 IMAGE_NAME="PackerD8"

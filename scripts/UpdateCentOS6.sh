@@ -5,7 +5,7 @@ source ../rc_files/dairrc
 
 cd ../images
 # Download the latest version - this URL will likely need updating
-wget -N http://buildlogs.centos.org/monthly/6/CentOS-6-x86_64-GenericCloud-20141129_01.qcow2c
+wget -N http://cloud.centos.org/centos/6/images/CentOS-6-x86_64-GenericCloud.qcow2c
 
 # Upload to Glance
 echo "Uploading to Glance..."
@@ -25,7 +25,7 @@ fi
 glance image-delete TempCentOSImage
 sleep 5
 # For some reason getting the ID fails but using the name succeeds.
-#openstack image set --property description="Built on `date`" --property image_type='image' "${IMAGE_NAME}"
-glance image-update --name "CentOS 6" --property description="Built on `date`" --property image_type='image' --purge-props "${IMAGE_NAME}"
+IMAGE_ID=$(glance image-list | grep Packer | awk ' { print $2} ')
+glance image-update --name "CentOS 6"  --property description="Built on `date`" --property image_type='image' --property os_type=linux --remove-property base_image_ref --remove-property image_location --remove-property instance_uuid --remove-property owner_id --remove-property user_id "${IMAGE_ID}"
 
 echo "Image Available!"

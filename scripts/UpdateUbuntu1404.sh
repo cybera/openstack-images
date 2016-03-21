@@ -22,8 +22,7 @@ fi
 
 glance image-delete TempUbuntuImage
 sleep 5
-#For some reason getting the ID fails but using the name succeeds
-#openstack image set --property description="Built on `date`" --property image_type='image' "${IMAGE_NAME}"
-glance image-update --name "Ubuntu 14.04"  --property description="Built on `date`" --property image_type='image' --purge-props "${IMAGE_NAME}"
+IMAGE_ID=$(glance image-list | grep Packer | awk ' { print $2} ')
+glance image-update --name "Ubuntu 14.04"  --property description="Built on `date`" --property image_type='image' --property os_type=linux --remove-property base_image_ref --remove-property image_location --remove-property instance_uuid --remove-property owner_id --remove-property user_id "${IMAGE_ID}"
 
 echo "Image Available !"

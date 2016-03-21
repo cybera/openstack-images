@@ -30,19 +30,25 @@ else
     sudo mv /home/${user}/motd /etc/motd
 fi
 
-sudo mv /home/${user}/enableAutoUpdate /usr/local/bin/
 sudo mv /home/${user}/installOpenStackTools /usr/local/bin/
-sudo mv /home/${user}/localSUS /usr/local/bin/
-sudo mv /home/${user}/proxyServer /usr/local/bin/
-sudo mv /home/${user}/rac-iptables.sh /etc/
 
-sudo chmod 755 /usr/local/bin/enableAutoUpdate
 sudo chmod 755 /usr/local/bin/installOpenStackTools
 
+# Install and make executable other scripts.
+for i in installOpenStackTools; do
+  sudo mv /home/${user}/${i} /usr/local/bin/
+  sudo chmod 755 /usr/local/bin/${i}
+done
+
 echo "Cleaning Up..."
+# 12.04 includes biased udev rules
+grep 12 /etc/lsb-release > /dev/null
+if [ $? -eq 0 ]; then
+  rm -rf /etc/udev/rules.d/70*
+fi
+
 # Clean up injected data
-rm -rf /home/ubuntu/.ssh/authorized_keys
-rm -rf /home/debian/.ssh/authorized_keys
+sudo rm -rf /{root,home/ubuntu,home/debian}/{.ssh,.bash_history} && history -c
 
 #Ensure changes are written to disk
 sync
