@@ -2,7 +2,7 @@
 
 cd ../images
 # Download the latest version - this URL will likely need updating
-wget -N http://buildlogs.centos.org/monthly/6/CentOS-6-x86_64-GenericCloud-20141129_01.qcow2c
+wget -N http://cloud.centos.org/centos/6/images/CentOS-6-x86_64-GenericCloud.qcow2c
 
 # Upload to Glance
 echo "Uploading to Glance..."

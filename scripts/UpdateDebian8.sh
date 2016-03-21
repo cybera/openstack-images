@@ -2,7 +2,7 @@
 
 cd ../images
 # Download the latest version
-wget -N http://cdimage.debian.org/cdimage/openstack/current/debian-8.1.0-openstack-amd64.qcow2
+wget -N http://cdimage.debian.org/cdimage/openstack/current/debian-8.3.0-openstack-amd64.qcow2
 
 # Upload to Glance
 echo "Uploading to Glance..."

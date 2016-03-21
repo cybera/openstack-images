@@ -2,7 +2,7 @@
 
 cd ../images
 # Download the latest version
-wget -N http://cloud.centos.org/centos/7/devel/CentOS-7-x86_64-GenericCloud.qcow2
+wget -N http://cloud.centos.org/centos/7/images/CentOS-7-x86_64-GenericCloud.qcow2c
 
 # CentOS 7 can not be resized due to it's use of XFS as it's main partition.
 
