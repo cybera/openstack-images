@@ -5,7 +5,7 @@ source ../rc_files/dairrc
 
 cd ../images
 # Download the latest version
-wget -N https://cloud-images.ubuntu.com/daily/server/precise/current/precise-server-cloudimg-amd64-disk1.img
+wget -N https://cloud-images.ubuntu.com/releases/precise/release/ubuntu-12.04-server-cloudimg-amd64-disk1.img
 
 # Upload to Glance
 echo "Uploading to Glance..."
