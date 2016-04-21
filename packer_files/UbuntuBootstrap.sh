@@ -37,7 +37,7 @@ sudo apt-get install -y python \
                         python-setuptools
 # Install heat-cfntools and cleanup
 cd $HOME
-wget https://pypi.python.org/packages/source/h/heat-cfntools/heat-cfntools-1.4.2.tar.gz#md5=395e95fecdfa47a89e260998fd5e50b4
+wget -q https://pypi.python.org/packages/source/h/heat-cfntools/heat-cfntools-1.4.2.tar.gz
 tar zxvf heat-cfntools-1.4.2.tar.gz
 cd heat-cfntools-1.4.2
 sudo python setup.py build
@@ -46,9 +46,9 @@ cd $HOME
 sudo rm -rf heat-cfntools-1.4.2
 sudo rm -rf heat-cfntools-1.4.2.tar.gz
 
-# If Ubuntu 14.04 provide the proxyServer script
-grep 14 /etc/lsb-release > /dev/null
-if [ $? -eq 0 ]; then
+# If Ubuntu 14.04 or 16.04 provide the proxyServer script
+grep '12' /etc/lsb-release > /dev/null
+if [ $? -eq 1 ]; then
   sudo mv /home/${user}/proxyServer /usr/local/bin/
   sudo chmod 755 /usr/local/bin/proxyServer
   sudo mv /home/${user}/rac-iptables.sh /etc/
@@ -68,7 +68,7 @@ if [ $? -eq 0 ]; then
 fi
 
 # Clean up injected data
-sudo rm -rf /{root,home/ubuntu,home/debian}/{.ssh,.bash_history} && history -c
+sudo rm -rf /{root,home/ubuntu,home/debian}/{.ssh,.bash_history,/*} && history -c
 
 #Ensure changes are written to disk
 sync

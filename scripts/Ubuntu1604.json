@@ -26,12 +26,12 @@
   },
   {
     "type": "file",
-    "souce": "../packer_files/proxyServer.sh",
+    "source": "../packer_files/proxyServer.sh",
     "destination": "/home/ubuntu/ProxyServer"
   },
   {
     "type": "file",
-    "souce": "../packer_files/rac-iptables.sh",
+    "source": "../packer_files/rac-iptables.sh",
     "destination": "/home/ubuntu/rac-iptables.sh"
   },
   {
