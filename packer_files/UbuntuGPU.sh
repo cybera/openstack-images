@@ -23,7 +23,7 @@ sudo apt-get install -y python-software-properties
 
 apt-add-repository -y ppa:graphics-drivers/ppa
 apt-get update
-apt-get install -y build-essential
+apt-get install -y build-essential make
 apt-get install -y linux-image-extra-virtual linux-headers-generic
 apt-get install -y nvidia-361
 
@@ -32,8 +32,8 @@ chmod +x cuda_*
 mkdir nvidia_installers
 ./cuda* -extract=`pwd`/nvidia_installers
 cd nvidia_installers
-./cuda-samples-linux-6.0.37-18176142.run
-./cuda-linux64-rel-6.0.37-18176142.run
+./cuda-samples-linux-6.0.37-18176142.run -noprompt
+./cuda-linux64-rel-6.0.37-18176142.run -noprompt
 
 #Ensure changes are written to disk
 sync
