@@ -21,19 +21,19 @@ update-initramfs -u
 sudo apt-get update
 sudo apt-get install -y python-software-properties
 
-apt-add-repository -y ppa:graphics-drivers/ppa
-apt-get update
-apt-get install -y build-essential make
-apt-get install -y linux-image-extra-virtual linux-headers-generic
-apt-get install -y nvidia-361
+sudo apt-add-repository -y ppa:graphics-drivers/ppa
+sudo apt-get update
+sudo apt-get install -y build-essential make
+sudo apt-get install -y linux-image-extra-virtual linux-headers-generic
+sudo apt-get install -y nvidia-361
 
 wget http://developer.download.nvidia.com/compute/cuda/6_0/rel/installers/cuda_6.0.37_linux_64.run
 chmod +x cuda_*
 mkdir nvidia_installers
 ./cuda* -extract=`pwd`/nvidia_installers
 cd nvidia_installers
-./cuda-samples-linux-6.0.37-18176142.run -noprompt
-./cuda-linux64-rel-6.0.37-18176142.run -noprompt
+sudo ./cuda-samples-linux-6.0.37-18176142.run -noprompt
+sudo ./cuda-linux64-rel-6.0.37-18176142.run -noprompt
 
 #Ensure changes are written to disk
 sync
