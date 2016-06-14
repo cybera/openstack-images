@@ -31,6 +31,7 @@ else
     sudo mv /home/${user}/motd /etc/motd
 fi
 
+sudo apt-get update
 # Install python and req. packages to build heat-cfntools
 sudo apt-get install -y python \
                         python-dev \
