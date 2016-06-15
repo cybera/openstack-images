@@ -27,11 +27,19 @@ sudo apt-get install -y build-essential make
 sudo apt-get install -y linux-image-extra-virtual linux-headers-generic
 sudo apt-get install -y nvidia-361
 
-wget http://developer.download.nvidia.com/compute/cuda/7.5/Prod/local_installers/cuda-repo-ubuntu1404-7-5-local_7.5-18_amd64.deb
-sudo dpkg -i cuda*.deb
-sudo apt-get update
-sudo apt-get install -y cuda
-sudo rm -rf cuda*.deb
+sudo wget http://developer.download.nvidia.com/compute/cuda/7.5/Prod/local_installers/cuda_7.5.18_linux.run
+sudo chmod +x cuda_*
+sudo mkdir nvidia_installers
+sudo ./cuda* -extract=`pwd`/nvidia_installers
+cd nvidia_installers
+sudo ./cuda-linux64-rel-7.5.18-19867135.run -noprompt
+sudo ./cuda-samples-linux-7.5.18-19867135.run -noprompt -cudaprefix=/usr/local/cuda-7.5
+
+# Clean up
+cd
+sudo rm -rf cuda*
+sudo rm -rf nvidia_installers
+sudo rm -rf /tmp/*
 
 #Ensure changes are written to disk
 sync
