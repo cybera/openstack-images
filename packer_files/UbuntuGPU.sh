@@ -2,7 +2,7 @@
 
 # This script installs the drivers for the NVIDIA graphics cards
 
-cat > /etc/modprobe.d/blacklist-nouveau.conf <<EOF
+cat <<EOF | sudo tee /etc/modprobe.d/blacklist-nouveau.conf
 blacklist nouveau
 blacklist lbm-nouveau
 options nouveau modeset=0
@@ -10,13 +10,13 @@ alias nouveau off
 alias lbm-nouveau off
 EOF
  
-echo blacklist nouveau >> /etc/modprobe.d/blacklist.conf
+echo blacklist nouveau | sudo tee -a /etc/modprobe.d/blacklist.conf
 
 rmmod nouveau
 
-echo options nouveau modeset=0 | tee -a /etc/modprobe.d/nouveau-kms.conf
+echo options nouveau modeset=0 | sudo tee -a /etc/modprobe.d/nouveau-kms.conf
  
-update-initramfs -u
+sudo update-initramfs -u
 
 sudo apt-get update
 sudo apt-get install -y python-software-properties
