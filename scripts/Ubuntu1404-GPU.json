@@ -8,7 +8,7 @@
     "ssh_username": "ubuntu",
     "openstack_provider": "nova",
     "image_name": "Packer1404",
-    "flavor": "2",
+    "flavor": "g1.large",
     "floating_ip_pool": "nova"
   }],
   "provisioners": [{
