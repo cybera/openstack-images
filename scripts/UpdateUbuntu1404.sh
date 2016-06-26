@@ -19,7 +19,7 @@ fi
 
 glance image-delete $TEMP_ID
 sleep 5
-IMAGE_ID=$(glance image-list | grep Packer | awk ' { print $2} ')
+IMAGE_ID=$(glance image-list | grep Packer1404 | awk ' { print $2} ')
 glance image-update --name "Ubuntu 14.04"  --property description="Built on `date`" --property image_type='image' --property os_type=linux --property hw_disk_bus_model=virtio-scsi --property hw_scsi_model=virtio-scsi --property hw_disk_bus=scsi --remove-property base_image_ref --remove-property image_location --remove-property instance_uuid --remove-property owner_id --remove-property user_id "${IMAGE_ID}"
 
 echo "Image Available !"

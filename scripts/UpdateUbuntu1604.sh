@@ -13,16 +13,16 @@ glance_id=`glance image-create --disk-format qcow2 --container-format bare --fil
 
 # Run Packer
 packer build \
-    -var "source_image=$glance_id" \
+    -var "source_image=${glance_id}" \
     ../scripts/Ubuntu1604.json | tee ../logs/Ubuntu1604.log
 
 if [ ${PIPESTATUS[0]} != 0 ]; then
     exit 1
 fi
 
-glance image-delete TempUbuntuImage
+glance image-delete ${glance_id}
 sleep 5
-IMAGE_ID=$(glance image-list | grep Packer | awk ' { print $2} ')
+IMAGE_ID=$(glance image-list | grep Packer1604 | awk ' { print $2} ')
 glance image-update --name "Ubuntu 16.04"  --property description="Built on `date`" --property image_type='image' --property os_type=linux --remove-property base_image_ref --remove-property image_location --remove-property instance_uuid --remove-property owner_id --remove-property user_id "${IMAGE_ID}"
 #glance image-update --name "Ubuntu 16.04"  --property description="Built on `date`" --property image_type='image' --property os_type=linux --property hw_disk_bus_model=virtio-scsi --property hw_scsi_model=virtio-scsi --property hw_disk_bus=scsi --remove-property base_image_ref --remove-property image_location --remove-property instance_uuid --remove-property owner_id --remove-property user_id "${IMAGE_ID}"
 
