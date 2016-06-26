@@ -13,7 +13,7 @@ TEMP_ID=`glance image-create --disk-format qcow2 --container-format bare --file 
 # Run Packer
 packer build \
     -var "source_image=$TEMP_ID" \
-    ../scripts/CentOS7-GPU.json $@ | tee ../logs/CentOS7.log
+    ../scripts/CentOS7-GPU.json $@ | tee ../logs/CentOS7-GPU.log
 
 if [ ${PIPESTATUS[0]} != 0 ]; then
     exit 1
