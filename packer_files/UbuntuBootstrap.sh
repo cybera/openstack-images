@@ -32,28 +32,7 @@ else
 fi
 
 sudo apt-get update
-# Install python and req. packages to build heat-cfntools
-sudo apt-get install -y python \
-                        python-dev \
-                        python-setuptools
-# Install heat-cfntools and cleanup
-cd $HOME
-wget -q https://pypi.python.org/packages/source/h/heat-cfntools/heat-cfntools-1.4.2.tar.gz
-tar zxvf heat-cfntools-1.4.2.tar.gz
-cd heat-cfntools-1.4.2
-sudo python setup.py build
-sudo python setup.py install
-cd $HOME
-sudo rm -rf heat-cfntools-1.4.2
-sudo rm -rf heat-cfntools-1.4.2.tar.gz
-
-# If Ubuntu 14.04 or 16.04 provide the proxyServer script
-grep '12' /etc/lsb-release > /dev/null
-if [ $? -eq 1 ]; then
-  sudo mv /home/${user}/proxyServer /usr/local/bin/
-  sudo chmod 755 /usr/local/bin/proxyServer
-  sudo mv /home/${user}/rac-iptables.sh /etc/
-fi
+interface=$(ip a | awk '/eth0|ens3/ { print $2 }' | head -n 1 | sed 's/://')
 
 # Install and make executable other scripts.
 for i in enableAutoUpdate installOpenStackTools localSUS; do
@@ -72,6 +51,22 @@ fi
 sudo apt-get -y clean
 sudo rm -rf /{root,home/ubuntu,home/debian}/{.ssh,.bash_history,/*} && history -c
 sudo rm /var/lib/systemd/timers/*
+
+# Subvert DHCP
+echo """
+auto lo
+iface lo inet loopback
+
+auto ${interface}
+iface ${interface} inet static
+    address 192.168.7.5
+    netmask 255.255.255.0
+    gateway 192.168.7.1
+    dns-nameservers 192.168.7.1
+""" | sudo tee /etc/network/interfaces
+
+# Remove cloud vdb entry
+sudo sed -i '/vdb/d' /etc/fstab
 
 #Ensure changes are written to disk
 sync
