@@ -8,7 +8,7 @@ wget -N http://cloud.centos.org/centos/7/images/CentOS-7-x86_64-GenericCloud.qco
 
 # Upload to Glance
 echo "Uploading to Glance..."
-TEMP_ID=`glance image-create --disk-format qcow2 --container-format bare --file CentOS-7-x86_64-GenericCloud.qcow2 --name TempCentOSImage | grep id | awk ' { print $4 }'`
+TEMP_ID=`glance image-create --disk-format qcow2 --container-format bare --property hw_disk_bus_model=virtio-scsi --property hw_scsi_model=virtio-scsi --property hw_disk_bus=scsi --file CentOS-7-x86_64-GenericCloud.qcow2 --name TempCentOSImage | grep id | awk ' { print $4 }'`
 
 # Run Packer
 packer build \
@@ -22,6 +22,6 @@ fi
 glance image-delete $TEMP_ID
 sleep 5
 IMAGE_ID=$(glance image-list | grep PackerCentOS | awk ' { print $2} ')
-glance image-update --name "CentOS 7"  --property description="Built on `date`" --property image_type='image' --property os_type=linux --remove-property base_image_ref --remove-property image_location --remove-property instance_uuid --remove-property owner_id --remove-property user_id "${IMAGE_ID}"
+glance image-update --name "CentOS 7"  --property description="Built on `date`" --property image_type='image' --property os_type=linux --property hw_disk_bus_model=virtio-scsi --property hw_scsi_model=virtio-scsi --property hw_disk_bus=scsi --remove-property base_image_ref --remove-property image_location --remove-property instance_uuid --remove-property owner_id --remove-property user_id "${IMAGE_ID}"
 
 echo "Image Available!"

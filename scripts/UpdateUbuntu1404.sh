@@ -6,7 +6,7 @@ wget -N https://cloud-images.ubuntu.com/releases/14.04/release/ubuntu-14.04-serv
 
 # Upload to Glance
 echo "Uploading to Glance..."
-TEMP_ID=`glance image-create --disk-format qcow2 --container-format bare --file ubuntu-14.04-server-cloudimg-amd64-disk1.img --name TempUbuntuImage | grep id | awk ' { print $4 }'`
+TEMP_ID=`glance image-create --disk-format qcow2 --container-format bare --property hw_disk_bus_model=virtio-scsi --property hw_scsi_model=virtio-scsi --property hw_disk_bus=scsi --file ubuntu-14.04-server-cloudimg-amd64-disk1.img --name TempUbuntuImage | grep id | awk ' { print $4 }'`
 
 # Run Packer
 packer build \
