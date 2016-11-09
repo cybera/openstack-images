@@ -96,7 +96,7 @@ Section "Device"
     Identifier     "Device0"
     Driver         "nvidia"
     VendorName     "NVIDIA Corporation"
-    BusID          "0:7:0"
+    BusID          "0:6:0"
 EndSection
 Section "Screen"
     Identifier     "Screen0"
