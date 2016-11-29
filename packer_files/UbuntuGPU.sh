@@ -139,6 +139,8 @@ sudo rm -rf nvidia_installers
 sudo rm -rf /tmp/*
 sudo rm /etc/apt/apt.conf.d/02proxy
 sudo rm -rf /var/crash/*
+sudo rm -rf /etc/machine-id
+sudo touch /etc/machine-id
 sudo apt-get clean
 
 #Ensure changes are written to disk

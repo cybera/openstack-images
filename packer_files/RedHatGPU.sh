@@ -124,5 +124,8 @@ sudo rm -rf /{root,home/*}/{.ssh,.bash_history} && history -c
   
 cat "" | sudo tee /etc/hostname
 
+sudo rm -rf /etc/machine-id
+sudo touch /etc/machine-id
+
 #Ensure changes are written to disk
 sync

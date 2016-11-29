@@ -71,6 +71,8 @@ fi
 # Clean up injected data
 sudo apt-get -y clean
 sudo rm -rf /{root,home/ubuntu,home/debian}/{.ssh,.bash_history,/*} && history -c
+sudo rm /etc/machine-id
+sudo touch /etc/machine-id
 sudo rm /var/lib/systemd/timers/*
 
 #Ensure changes are written to disk

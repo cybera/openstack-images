@@ -37,6 +37,8 @@ sudo rm /etc/udev/rules.d/*
 
 # Clean up injected data
 sudo rm -rf /{root,home/*}/{.ssh,.bash_history} && history -c
+sudo rm -rf /etc/machine-id
+sudo touch /etc/machine-id
 
 #Ensure changes are written to disk
 sync
