@@ -37,12 +37,7 @@ Debian images need extra testing as occasionally the image won't build correctly
 
 Distros that can be built:
 
-  * Ubuntu 12.04
   * Ubuntu 14.04
+  * Ubuntu 16.04
   * CentOS 7
-  * CentOS 6.6
-  * Fedora 21
-  * Fedora 22
-  * Debian 7
-  * Debian 8.1
 
