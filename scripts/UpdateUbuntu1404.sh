@@ -8,9 +8,12 @@ wget -N https://cloud-images.ubuntu.com/releases/14.04/release/ubuntu-14.04-serv
 echo "Uploading to Glance..."
 TEMP_ID=`glance image-create --disk-format qcow2 --container-format bare --property hw_disk_bus_model=virtio-scsi --property hw_scsi_model=virtio-scsi --property hw_disk_bus=scsi --file ubuntu-14.04-server-cloudimg-amd64-disk1.img --name TempUbuntuImage | grep id | awk ' { print $4 }'`
 
+DEFAULT_NETWORK_ID=$(openstack network list --provider-network-type flat --share -c ID -f value)
+
 # Run Packer
 packer build \
-    -var "source_image=$TEMP_ID" \
+    -var "source_image=${TEMP_ID}" \
+    -var "default_network=${DEFAULT_NETWORK_ID}" \
     ../scripts/Ubuntu1404.json | tee ../logs/Ubuntu1404.log
 
 if [ ${PIPESTATUS[0]} != 0 ]; then

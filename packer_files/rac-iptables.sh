@@ -1,5 +1,7 @@
 #!/bin/bash
 
+# BE SURE TO HAVE RUN /usr/local/bin/proxyServer to enable these rules
+
 # Do not edit
 iptables -F
 iptables -X
