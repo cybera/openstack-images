@@ -1,14 +1,17 @@
 {
   "variables": {
-    "source_image": ""
+    "source_image": "",
+    "default_network": ""
   },
   "builders": [{
     "type": "openstack",
     "source_image": "{{ user `source_image` }}",
     "ssh_username": "ubuntu",
-    "openstack_provider": "nova",
     "image_name": "Packer1604",
-    "flavor": "1"
+    "flavor": "1",
+    "networks": "{{ user `default_network` }}",
+    "ssh_interface": "default",
+    "ssh_ip_version": "6"
   }],
   "provisioners": [{
     "type": "shell",
