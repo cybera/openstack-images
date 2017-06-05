@@ -7,10 +7,12 @@ wget -N https://cloud-images.ubuntu.com/releases/16.04/release/ubuntu-16.04-serv
 # Upload to Glance
 echo "Uploading to Glance..."
 TEMP_ID=`glance image-create --disk-format qcow2 --container-format bare --file ubuntu-16.04-server-cloudimg-amd64-disk1.img --name TempUbuntuImage | grep id | awk ' { print $4 }'`
+DEFAULT_NETWORK_ID=$(openstack network list --provider-network-type flat --share -c ID -f value)
 
 # Run Packer
 packer build \
     -var "source_image=$TEMP_ID" \
+    -var "default_network=${DEFAULT_NETWORK_ID}" \
     ../scripts/Ubuntu1604-GPU.json | tee ../logs/Ubuntu1604-GPU.log
 
 if [ ${PIPESTATUS[0]} != 0 ]; then
