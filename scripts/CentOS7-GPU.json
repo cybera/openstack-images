@@ -1,0 +1,26 @@
+{
+  "variables": {
+    "source_image": ""
+  },
+  "builders": [{
+    "type": "openstack",
+    "source_image": "{{ user `source_image` }}",
+    "ssh_username": "centos",
+    "openstack_provider": "nova",
+    "image_name": "PackerCentOS7",
+    "flavor": "g1.large",
+    "floating_ip_pool": "nova",
+    "floating_ip": "208.75.74.210",
+    "ssh_pty": "true"
+  }],
+  "provisioners": [{
+    "type": "shell",
+    "inline": ["sleep 5"]
+  },
+  {
+    "type": "shell",
+    "script": "../packer_files/RedHatGPU.sh",
+    "pause_before": "1s"
+  }]
+}
+
