@@ -1,15 +1,17 @@
 {
   "variables": {
-    "source_image": ""
+    "source_image": "",
+    "default_network": ""
   },
   "builders": [{
     "type": "openstack",
     "source_image": "{{ user `source_image` }}",
     "ssh_username": "centos",
-    "openstack_provider": "nova",
     "image_name": "PackerCentOS7",
     "flavor": "2",
-    "floating_ip_pool": "nova",
+    "networks": "{{ user `default_network` }}",
+    "ssh_interface": "default",
+    "ssh_ip_version": "6",
     "ssh_pty": "true"
   }],
   "provisioners": [{

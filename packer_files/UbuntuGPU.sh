@@ -30,16 +30,21 @@ sudo apt-get update
 sudo apt-get install -y linux-image-extra-virtual linux-headers-generic
 sudo apt-get install -y build-essential 
 sudo apt-get update
-sudo apt-get install -y nvidia-352
+sudo apt-get install -y nvidia-375
+sudo apt-get install -f
 sudo apt-get install -y xubuntu-desktop libglu1-mesa-dev libx11-dev freeglut3-dev mesa-utils
+sudo apt-get install -f
 
-wget -q http://developer.download.nvidia.com/compute/cuda/7.5/Prod/local_installers/cuda_7.5.18_linux.run
+#wget -q http://developer.download.nvidia.com/compute/cuda/7.5/Prod/local_installers/cuda_7.5.18_linux.run
+wget -q https://developer.nvidia.com/compute/cuda/8.0/prod/local_installers/cuda_8.0.44_linux-run
 sudo chmod +x cuda_*
 sudo mkdir nvidia_installers
 sudo ./cuda* -extract=`pwd`/nvidia_installers
 cd nvidia_installers
-sudo ./cuda-linux64-rel-7.5.18-19867135.run -noprompt
-sudo ./cuda-samples-linux-7.5.18-19867135.run -noprompt -cudaprefix=/usr/local/cuda-7.5
+#sudo ./cuda-linux64-rel-7.5.18-19867135.run -noprompt
+sudo ./cuda-linux64-rel-8.0.44-21122537.run -noprompt
+#sudo ./cuda-samples-linux-7.5.18-19867135.run -noprompt -cudaprefix=/usr/local/cuda-7.5
+sudo ./cuda-samples-linux-8.0.44-21122537.run -noprompt -cudaprefix=/usr/local/cuda-8.0
 
 #TurboVNC and VirtualGL
 cd
@@ -131,6 +136,13 @@ VNCSERVERARGS[1]="-securitytypes unixlogin -pamsession -geometry 1240x900 -depth
 EOF
 
 sudo update-rc.d tvncserver defaults
+
+cat << EOF | sudo tee /etc/ld.so.conf.d/ld-library.conf
+# Add CUDA to LD
+/usr/local/cuda/lib64
+EOF
+
+sudo ldconfig
 
 # Clean up
 cd

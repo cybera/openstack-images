@@ -62,13 +62,8 @@ for i in enableAutoUpdate installOpenStackTools localSUS; do
 done
 
 echo "Cleaning Up..."
-# 12.04 includes biased udev rules
-grep 12 /etc/lsb-release > /dev/null
-if [ $? -eq 0 ]; then
-  sudo rm -rf /etc/udev/rules.d/70*
-fi
-
 # Clean up injected data
+sudo rm -rf /etc/udev/rules.d/70*
 sudo apt-get -y clean
 sudo rm -rf /{root,home/ubuntu,home/debian}/{.ssh,.bash_history,/*} && history -c
 sudo rm /etc/machine-id
