@@ -7,7 +7,7 @@ sudo mv ~/motd /etc/motd
 sudo mkdir -p /usr/share/dhclient-patch/
 sudo mv ~/dhclientpatch /usr/share/dhclient-patch/
 
-for i in enableAutoUpdate installOpenStackTools disableFirewall fixDHClientpatch; do
+for i in enableAutoUpdate installOpenStackTools disableFirewall fixDHClientPatch; do
   sudo mv ~/${i} /usr/local/bin/
   sudo chmod 755 /usr/local/bin/${i}
 done

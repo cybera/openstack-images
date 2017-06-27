@@ -17,6 +17,8 @@ if [ -f /etc/debian_version ]; then
 elif [ -f /etc/redhat-release ]; then
     # Enable Auto Updates
     sudo yum updateinfo
+    # Work around CentOS package bug
+    sudo yum update -y yum
     sudo yum -y install yum-cron
 
     echo """

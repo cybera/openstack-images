@@ -1,0 +1,19 @@
+
+module local-module 1.0;
+
+require {
+	type thumb_exec_t;
+	type xserver_t;
+	type system_dbusd_t;
+	type xdm_t;
+	type xdm_var_lib_t;
+	class unix_dgram_socket sendto;
+	class file execute;
+}
+
+#============= system_dbusd_t ==============
+allow system_dbusd_t thumb_exec_t:file execute;
+
+#============= xdm_t ==============
+allow xdm_t xdm_var_lib_t:file execute;
+allow xdm_t xserver_t:unix_dgram_socket sendto;
