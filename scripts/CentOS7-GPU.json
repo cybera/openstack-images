@@ -1,15 +1,17 @@
 {
   "variables": {
-    "source_image": ""
+    "source_image": "",
+    "default_network": ""
   },
   "builders": [{
     "type": "openstack",
     "source_image": "{{ user `source_image` }}",
     "ssh_username": "centos",
-    "openstack_provider": "nova",
     "image_name": "PackerCentOS7",
     "flavor": "g1.large",
-    "floating_ip_pool": "nova",
+    "networks": "{{ user `default_network` }}",
+    "ssh_interface": "default",
+    "ssh_ip_version": "6",
     "ssh_pty": "true"
   }],
   "provisioners": [{
@@ -47,18 +49,28 @@
     "destination": "/home/centos/fixDHClientPatch"
   },
   {
+    "type": "file",
+    "source": "../packer_files/local-module.te",
+    "destination": "/home/centos/local-module.te"
+  },
+  {
+    "type": "file",
+    "source": "../packer_files/local-module.pp",
+    "destination": "/home/centos/local-module.pp"
+  },
+  {
     "type": "shell",
     "script": "../packer_files/RedHatBootstrap.sh",
     "pause_before": "1s"
   },
   {
     "type": "shell",
-    "script": "../packer_files/RedHatGPU.sh",
+    "script": "../packer_files/fixDHClient.sh",
     "pause_before": "1s"
   },
   {
     "type": "shell",
-    "script": "../packer_files/fixDHClient.sh",
+    "script": "../packer_files/RedHatGPU.sh",
     "pause_before": "1s"
   }]
 }

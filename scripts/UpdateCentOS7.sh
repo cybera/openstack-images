@@ -9,10 +9,12 @@ wget -N http://cloud.centos.org/centos/7/images/CentOS-7-x86_64-GenericCloud.qco
 # Upload to Glance
 echo "Uploading to Glance..."
 TEMP_ID=`glance image-create --disk-format qcow2 --container-format bare --property hw_disk_bus_model=virtio-scsi --property hw_scsi_model=virtio-scsi --property hw_disk_bus=scsi --file CentOS-7-x86_64-GenericCloud.qcow2 --name TempCentOSImage | grep id | awk ' { print $4 }'`
+DEFAULT_NETWORK_ID=$(openstack network list --provider-network-type flat --share -c ID -f value)
 
 # Run Packer
 packer build \
     -var "source_image=$TEMP_ID" \
+    -var "default_network=${DEFAULT_NETWORK_ID}" \
     ../scripts/CentOS7.json $@ | tee ../logs/CentOS7.log
 
 if [ ${PIPESTATUS[0]} != 0 ]; then
