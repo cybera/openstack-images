@@ -7,7 +7,7 @@ exclude=dhclient* dhcp-*
 EOF
 
 sudo yum -y update
-sudo yum -y install kernel-devel kernel-headers gcc make pciutils
+sudo yum -y install kernel-devel kernel-headers gcc make pciutils --disableexcludes=all
 sudo yum -y groupinstall "Development Tools"
 
 cat <<EOF | sudo tee /etc/modprobe.d/blacklist-nouveau.conf
@@ -20,18 +20,20 @@ EOF
 
 echo blacklist nouveau | sudo tee -a /etc/modprobe.d/blacklist.conf
 
+sudo mv /home/centos/local-module.pp /usr/share/selinux/targeted/gpu-access.pp
+sudo mv /home/centos/local-module.te /usr/share/selinux/targeted/gpu-access.te
+sudo semodule -i /usr/share/selinux/targeted/gpu-access.pp
+
 sudo rpm --import https://www.elrepo.org/RPM-GPG-KEY-elrepo.org
 sudo rpm -Uvh http://www.elrepo.org/elrepo-release-7.0-2.el7.elrepo.noarch.rpm
 sudo yum -y install kmod-nvidia
 
-sudo yum -y install perl-Env
-sudo yum install -y epel-release
+sudo yum install -y perl-Env wget epel-release
 sudo yum install -y @xfce
 sudo yum groupinstall -y "X Window System"
 sudo systemctl set-default graphical.target
 
 sudo yum install -y VirtualGL
-sudo yum install -y wget
 
 wget -q https://swift-yyc.cloud.cybera.ca:8080/v1/AUTH_ca447e24e0f84eab8e6f6b93703b774a/public_files/turbovnc-2.0.91.x86_64.rpm
 sudo rpm -Uhv turbovnc-2.0.91.x86_64.rpm
@@ -99,7 +101,7 @@ Section "Device"
     Identifier     "Device0"
     Driver         "nvidia"
     VendorName     "NVIDIA Corporation"
-    BusID          "0:6:0"
+    BusID          "0:5:0"
 EndSection
 Section "Screen"
     Identifier     "Screen0"
@@ -116,11 +118,21 @@ EndSection
 EOF
 sudo chattr +i /etc/X11/xorg.conf
 
-wget http://developer.download.nvidia.com/compute/cuda/repos/rhel7/x86_64/cuda-repo-rhel7-7.5-18.x86_64.rpm
-sudo rpm -i cuda-repo-rhel7-7.5-18.x86_64.rpm
+wget -q http://developer.download.nvidia.com/compute/cuda/repos/rhel7/x86_64/cuda-repo-rhel7-8.0.44-1.x86_64.rpm
+sudo rpm -i cuda-repo-rhel7-8.0.44-1.x86_64.rpm
+
+cat << EOF | sudo tee /etc/ld.so.conf.d/ld-library.conf
+# Add CUDA to LD
+/usr/local/cuda/lib64
+EOF
+
+sudo ldconfig
+
+
 sudo yum clean all
 sudo yum -y install cuda
 sudo rm -rf /{root,home/*}/{.ssh,.bash_history} && history -c
+sudo rm -rf /home/centos/*
   
 cat "" | sudo tee /etc/hostname
 

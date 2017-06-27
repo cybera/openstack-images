@@ -1,5 +1,6 @@
 #! /bin/bash -x
 
+export DEBIAN_FRONTEND=noninteractive
 /usr/local/bin/localSUS
 
 #Blacklist nouveau
@@ -30,20 +31,17 @@ sudo apt-get update
 sudo apt-get install -y linux-image-extra-virtual linux-headers-generic
 sudo apt-get install -y build-essential 
 sudo apt-get update
-sudo apt-get install -y nvidia-375
-sudo apt-get install -f
+sudo apt-get install -y dictionaries-common
+sudo apt-get install -y nvidia-375 nvidia-modprobe
 sudo apt-get install -y xubuntu-desktop libglu1-mesa-dev libx11-dev freeglut3-dev mesa-utils
-sudo apt-get install -f
 
-#wget -q http://developer.download.nvidia.com/compute/cuda/7.5/Prod/local_installers/cuda_7.5.18_linux.run
+
 wget -q https://developer.nvidia.com/compute/cuda/8.0/prod/local_installers/cuda_8.0.44_linux-run
 sudo chmod +x cuda_*
 sudo mkdir nvidia_installers
 sudo ./cuda* -extract=`pwd`/nvidia_installers
 cd nvidia_installers
-#sudo ./cuda-linux64-rel-7.5.18-19867135.run -noprompt
 sudo ./cuda-linux64-rel-8.0.44-21122537.run -noprompt
-#sudo ./cuda-samples-linux-7.5.18-19867135.run -noprompt -cudaprefix=/usr/local/cuda-7.5
 sudo ./cuda-samples-linux-8.0.44-21122537.run -noprompt -cudaprefix=/usr/local/cuda-8.0
 
 #TurboVNC and VirtualGL
@@ -62,6 +60,8 @@ sudo chmod +s /usr/lib/libvglfaker.so
 sudo /opt/VirtualGL/bin/vglserver_config -config +s +f +t
 
 #Configure X11 and nvidia
+# K1 = 0:7:0
+# K80 = 0:5:0??
 cat <<EOF | sudo tee /etc/X11/xorg.conf
 Section "DRI"
         Mode 0666
@@ -101,7 +101,7 @@ Section "Device"
     Identifier     "Device0"
     Driver         "nvidia"
     VendorName     "NVIDIA Corporation"
-    BusID          "0:6:0"
+    BusID          "0:5:0"
 EndSection
 Section "Screen"
     Identifier     "Screen0"
