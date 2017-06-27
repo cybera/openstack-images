@@ -13,18 +13,6 @@ if [ -d /home/ubuntu ]; then
     #Force update Ubuntu's dynamic motd
     cat /etc/motd | sudo tee -a /var/run/motd.dynamic
 
-    # 12.04 wants motd.tail instead of motd
-    grep 12 /etc/lsb-release > /dev/null
-    if [ $? -eq 0 ]; then
-        sudo mv /etc/motd /etc/motd.tail
-        sudo ln -s /var/run/motd /etc/motd
-
-        #Alter text with correct path
-        sudo sed -i 's/motd/motd.tail/' /etc/motd.tail
-        sudo sed -i 's/motd/motd.tail/' /var/run/motd
-    fi
-
-
 else
     # Debian does not have a default motd
     user='debian'
@@ -47,13 +35,9 @@ cd $HOME
 sudo rm -rf heat-cfntools-1.4.2
 sudo rm -rf heat-cfntools-1.4.2.tar.gz
 
-# If Ubuntu 14.04 or 16.04 provide the proxyServer script
-grep '12' /etc/lsb-release > /dev/null
-if [ $? -eq 1 ]; then
-  sudo mv /home/${user}/proxyServer /usr/local/bin/
-  sudo chmod 755 /usr/local/bin/proxyServer
-  sudo mv /home/${user}/rac-iptables.sh /etc/
-fi
+sudo mv /home/${user}/proxyServer /usr/local/bin/
+sudo chmod 755 /usr/local/bin/proxyServer
+sudo mv /home/${user}/rac-iptables.sh /etc/
 
 # Install and make executable other scripts.
 for i in enableAutoUpdate installOpenStackTools localSUS; do
@@ -69,6 +53,7 @@ sudo rm -rf /{root,home/ubuntu,home/debian}/{.ssh,.bash_history,/*} && history -
 sudo rm /etc/machine-id
 sudo touch /etc/machine-id
 sudo rm /var/lib/systemd/timers/*
+#sudo touch /var/lib/cloud/instance/warnings/.skip
 
 #Ensure changes are written to disk
 sync
