@@ -16,14 +16,8 @@ elif [ -f /etc/redhat-release ]; then
     if [ "`rpm -qa \*-release | grep -Ei "oracle|redhat|centos|fedora" | cut -d"-" -f3`" -ge 7 ]; then
 
         cd /tmp
-        curl -O https://dl.fedoraproject.org/pub/epel/7/x86_64/e/epel-release-7-5.noarch.rpm
-        sudo yum install -y /tmp/epel-release-7-5.noarch.rpm
-
-    elif [ "`rpm -qa \*-release | grep -Ei "oracle|redhat|centos|fedora" | cut -d"-" -f3`" -eq 6 ]; then
-
-        cd /tmp
-        curl -O http://mirror-fpt-telecom.fpt.net/fedora/epel/6/i386/epel-release-6-8.noarch.rpm
-        sudo yum install -y /tmp/epel-release-6-8.noarch.rpm
+        curl -O https://dl.fedoraproject.org/pub/epel/epel-release-latest-7.noarch.rpm
+        sudo yum install -y /tmp/epel-release-latest-7.noarch.rpm
 
     fi
 
@@ -32,7 +26,7 @@ elif [ -f /etc/redhat-release ]; then
 
 fi
 
-sudo pip install python-openstackclient python-novaclient python-keystoneclient python-swiftclient python-glanceclient python-cinderclient python-neutronclient python-ceilometerclient python-troveclient python-heatclient python-designateclient
+sudo pip install pytz python-openstackclient python-novaclient python-keystoneclient python-swiftclient python-glanceclient python-cinderclient python-neutronclient python-ceilometerclient python-troveclient python-heatclient python-designateclient
 
 echo "The following OpenStack Command Line Tools have been installed:"
 echo "  * openstack"
