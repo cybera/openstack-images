@@ -1,0 +1,56 @@
+{
+  "variables": {
+    "source_image": "",
+    "default_network": ""
+  },
+  "builders": [{
+    "type": "openstack",
+    "source_image": "{{ user `source_image` }}",
+    "ssh_username": "ubuntu",
+    "image_name": "Packer1804",
+    "flavor": "1",
+    "networks": "{{ user `default_network` }}",
+    "ssh_interface": "default",
+    "ssh_ip_version": "6"
+  }],
+  "provisioners": [{
+    "type": "shell",
+    "inline": ["sleep 5"]
+  },
+  {
+    "type": "file",
+    "source": "../packer_files/enableAutoUpdate.sh",
+    "destination": "/home/ubuntu/enableAutoUpdate"
+  },
+  {
+    "type": "file",
+    "source": "../packer_files/installOpenStackTools.sh",
+    "destination": "/home/ubuntu/installOpenStackTools"
+  },
+  {
+    "type": "file",
+    "source": "../packer_files/proxyServer.sh",
+    "destination": "/home/ubuntu/proxyServer"
+  },
+  {
+    "type": "file",
+    "source": "../packer_files/rac-iptables.sh",
+    "destination": "/home/ubuntu/rac-iptables.sh"
+  },
+  {
+    "type": "file",
+    "source": "../packer_files/localSUS.sh",
+    "destination": "/home/ubuntu/localSUS"
+  },
+  {
+    "type": "file",
+    "source": "../packer_files/motd.debian",
+    "destination": "/home/ubuntu/motd"
+  },
+  {
+    "type": "shell",
+    "script": "../packer_files/UbuntuBootstrap.sh",
+    "pause_before": "1s"
+  }]
+}
+
