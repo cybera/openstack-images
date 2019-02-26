@@ -17,13 +17,13 @@ Description:
       - `localSUS.sh`               sets apt-cache-ng server. Please set this server here or consult the `rac` branch for a multi region example.
   * `rc_files/`               place the rc file used for access to RAC here (`racrc` is the file referenced by the scripts)
   * `scripts/`                packer scripts: *.json files read by packer to do what packer does, and distro-specific scripts to start the image building process
-  * `vagrant/`                creates an instance in RAC to build the images from, instead of installing packer etc. locally
+  * `terraform/`              creates an instance in RAC to build the images from, instead of installing packer etc. locally
   * `ManualToolsInstall.sh`   simple script installs packer and OpenStack python scripts
   * `UpdateAllImages.sh`      runs all update scripts in `scripts/`
 
 How to Use:
 
-  1. Stand up the Packer box using Vagrant (see the vagrant folder) or use the `ManualToolsInstall` script to install packer and other tools locally.
+  1. Stand up the Packer box using Terraform or use the `ManualToolsInstall` script to install packer and other tools locally.
   2. Install rc files into `rc_files/` for the environment(s). Modify scripts as necessary for environments.
   3. Include any files you want built into the image in `packer_files/`. Also include any scripts you want packer to execute.
   4. Modify the appropriate `*.json` file in `scripts/`, and possibly the `*Bootstrap.sh` post-packer script.
@@ -43,12 +43,8 @@ Debian images need extra testing as occasionally the image won't build correctly
 
 Distros that can be built:
 
-  * Ubuntu 12.04
-  * Ubuntu 14.04
+  * Ubuntu 16.04
+  * Ubuntu 18.04
   * CentOS 7
-  * CentOS 6.6
-  * Fedora 21
-  * Fedora 22
-  * Debian 7
-  * Debian 8.1
+  * Debian 9
 

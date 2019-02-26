@@ -5,12 +5,13 @@
   "builders": [{
     "type": "openstack",
     "source_image": "{{ user `source_image` }}",
-    "ssh_username": "ubuntu",
+    "ssh_username": "centos",
     "openstack_provider": "nova",
-    "image_name": "Packer1404",
+    "image_name": "PackerCentOS7",
     "flavor": "g1.large",
-    "floating_ip": "162.244.228.29",
-    "floating_ip_pool": "nova"
+    "floating_ip_pool": "nova",
+    "floating_ip": "208.75.74.210",
+    "ssh_pty": "true"
   }],
   "provisioners": [{
     "type": "shell",
@@ -18,7 +19,7 @@
   },
   {
     "type": "shell",
-    "script": "../packer_files/UbuntuGPU.sh",
+    "script": "../packer_files/RedHatvGPU.sh",
     "pause_before": "1s"
   }]
 }

@@ -5,3 +5,5 @@
 *.qcow2
 *.qcow2c
 .vagrant
+**.terraform*
+*.tfstate*
