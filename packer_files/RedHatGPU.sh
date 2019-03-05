@@ -2,10 +2,6 @@
 
 # This script installs the drivers for the NVIDIA graphics cards
 
-cat <<EOF | sudo tee -a /etc/yum.conf
-exclude=dhclient* dhcp-*
-EOF
-
 sudo yum -y update
 sudo yum -y install kernel-devel kernel-headers gcc make pciutils --disableexcludes=all
 sudo yum -y groupinstall "Development Tools"
@@ -149,7 +145,7 @@ sudo nvidia-smi
 sudo rm -rf /{root,home/*}/{.ssh,.bash_history} && history -c
 sudo rm -rf /home/centos/*
 sudo rm -rf /tmp/*
-  
+
 cat "" | sudo tee /etc/hostname
 
 sudo rm -rf /etc/machine-id
