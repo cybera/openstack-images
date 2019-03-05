@@ -7,3 +7,4 @@
 .vagrant
 **.terraform*
 *.tfstate*
+rc_files/*rc*
