@@ -40,16 +40,6 @@
   },
   {
     "type": "file",
-    "source": "../packer_files/dhclientpatch",
-    "destination": "/home/centos/dhclientpatch"
-  },
-  {
-    "type": "file",
-    "source": "../packer_files/fixDHClient.sh",
-    "destination": "/home/centos/fixDHClientPatch"
-  },
-  {
-    "type": "file",
     "source": "../packer_files/local-module.te",
     "destination": "/home/centos/local-module.te"
   },
@@ -61,11 +51,6 @@
   {
     "type": "shell",
     "script": "../packer_files/RedHatBootstrap.sh",
-    "pause_before": "1s"
-  },
-  {
-    "type": "shell",
-    "script": "../packer_files/fixDHClient.sh",
     "pause_before": "1s"
   },
   {
