@@ -7,7 +7,7 @@
     "type": "openstack",
     "source_image": "{{ user `source_image` }}",
     "ssh_username": "ubuntu",
-    "image_name": "Packer1604",
+    "image_name": "Packer1804",
     "flavor": "g1.large.auto-destruct",
     "networks": "{{ user `default_network` }}",
     "ssh_interface": "default",

@@ -12,37 +12,28 @@ options nouveau modeset=0
 alias nouveau off
 alias lbm-nouveau off
 EOF
- 
+
 echo blacklist nouveau | sudo tee -a /etc/modprobe.d/blacklist.conf
 
 rmmod nouveau
 
 echo options nouveau modeset=0 | sudo tee -a /etc/modprobe.d/nouveau-kms.conf
- 
+
 sudo update-initramfs -u
 
 # nvidia drivers, cuda
 
 sudo apt-get update
 sudo apt-get install -y python-software-properties
-sudo apt-add-repository -y ppa:graphics-drivers/ppa
 
 sudo apt-get update
-sudo apt-get install -y linux-image-extra-virtual linux-headers-generic
-sudo apt-get install -y build-essential 
-sudo apt-get update
-sudo apt-get install -y dictionaries-common
-sudo apt-get install -y nvidia-375 nvidia-modprobe
-sudo apt-get install -y xubuntu-desktop libglu1-mesa-dev libx11-dev freeglut3-dev mesa-utils
+sudo apt-get install -y linux-image-extra-virtual linux-headers-generic build-essential
 
-
-wget -q https://developer.nvidia.com/compute/cuda/8.0/prod/local_installers/cuda_8.0.44_linux-run
+wget -q https://developer.nvidia.com/compute/cuda/10.1/Prod/local_installers/cuda_10.1.105_418.39_linux.run
 sudo chmod +x cuda_*
-sudo mkdir nvidia_installers
-sudo ./cuda* -extract=`pwd`/nvidia_installers
-cd nvidia_installers
-sudo ./cuda-linux64-rel-8.0.44-21122537.run -noprompt
-sudo ./cuda-samples-linux-8.0.44-21122537.run -noprompt -cudaprefix=/usr/local/cuda-8.0
+sudo ./cuda* --silent --driver --toolkit --samples --samplespath=/usr/local/cuda-10.1/samples
+
+sudo apt-get install -y xubuntu-desktop libglu1-mesa-dev libx11-dev freeglut3-dev mesa-utils dictionaries-common
 
 #TurboVNC and VirtualGL
 cd
@@ -61,12 +52,13 @@ sudo /opt/VirtualGL/bin/vglserver_config -config +s +f +t
 
 #Configure X11 and nvidia
 # K1 = 0:7:0
-# K80 = 0:5:0??
+# K80 = 0:5:0
+# Titan Xp = ??
 cat <<EOF | sudo tee /etc/X11/xorg.conf
 Section "DRI"
         Mode 0666
 EndSection
- 
+
 Section "ServerLayout"
     Identifier     "Layout0"
     Screen      0  "Screen0"
@@ -147,7 +139,6 @@ sudo ldconfig
 # Clean up
 cd
 sudo rm -rf cuda*
-sudo rm -rf nvidia_installers
 sudo rm -rf /tmp/*
 sudo rm /etc/apt/apt.conf.d/02proxy
 sudo rm -rf /var/crash/*

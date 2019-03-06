@@ -21,7 +21,7 @@ sudo mv /home/centos/local-module.te /usr/share/selinux/targeted/gpu-access.te
 sudo semodule -i /usr/share/selinux/targeted/gpu-access.pp
 
 sudo rpm --import https://www.elrepo.org/RPM-GPG-KEY-elrepo.org
-sudo rpm -Uvh http://www.elrepo.org/elrepo-release-7.0-2.el7.elrepo.noarch.rpm
+sudo rpm -Uvh https://www.elrepo.org/elrepo-release-7.0-3.el7.elrepo.noarch.rpm
 sudo yum -y install kmod-nvidia
 
 sudo yum install -y perl-Env wget epel-release
@@ -114,8 +114,8 @@ EndSection
 EOF
 sudo chattr +i /etc/X11/xorg.conf
 
-wget -q http://developer.download.nvidia.com/compute/cuda/repos/rhel7/x86_64/cuda-repo-rhel7-8.0.44-1.x86_64.rpm
-sudo rpm -i cuda-repo-rhel7-8.0.44-1.x86_64.rpm
+wget -q http://developer.download.nvidia.com/compute/cuda/repos/rhel7/x86_64/cuda-10-1-10.1.105-1.x86_64.rpm
+sudo rpm -i cuda-10-1-10.1.105-1.x86_64.rpm
 
 cat << EOF | sudo tee /etc/ld.so.conf.d/ld-library.conf
 # Add CUDA to LD

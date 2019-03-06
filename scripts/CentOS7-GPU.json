@@ -8,7 +8,7 @@
     "source_image": "{{ user `source_image` }}",
     "ssh_username": "centos",
     "image_name": "PackerCentOS7",
-    "flavor": "g1.large",
+    "flavor": "g1.large.auto-destruct",
     "networks": "{{ user `default_network` }}",
     "ssh_interface": "default",
     "ssh_ip_version": "6",
@@ -17,11 +17,6 @@
   "provisioners": [{
     "type": "shell",
     "inline": ["sleep 5"]
-  },
-  {
-    "type": "file",
-    "source": "../packer_files/enableAutoUpdate.sh",
-    "destination": "/home/centos/enableAutoUpdate"
   },
   {
     "type": "file",
