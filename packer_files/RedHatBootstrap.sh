@@ -18,7 +18,7 @@ fi
 
 # get heat-cfntools and build
 cd $HOME
-curl https://pypi.python.org/packages/source/h/heat-cfntools/heat-cfntools-1.4.2.tar.gz#md5=395e95fecdfa47a89e260998fd5e50b4 -o heat-cfntools-1.4.2.tar.gz
+curl https://files.pythonhosted.org/packages/3d/f9/3a3ea20baf4ddc64e3ba0402514b5baf7cdb718e7a60d589f882c4cc0a8b/heat-cfntools-1.4.2.tar.gz -o heat-cfntools-1.4.2.tar.gz
 tar zxvf heat-cfntools-1.4.2.tar.gz
 cd heat-cfntools-1.4.2
 sudo python setup.py build
