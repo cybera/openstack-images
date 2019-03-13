@@ -36,6 +36,13 @@ sudo rm /etc/udev/rules.d/*
 sudo rm -rf /{root,home/*}/{.ssh,.bash_history} && history -c
 sudo rm -rf /etc/machine-id
 sudo touch /etc/machine-id
+sudo rm -rf /tmp/*
+sudo rm -rf /var/lib/cloud/*
+sudo rm -rf /var/log/journal/*
+sudo rm /etc/machine-id
+sudo touch /etc/machine-id
+sudo rm /var/lib/systemd/timers/*
+sudo rm -rf /var/crash/*
 
 #Ensure changes are written to disk
 sync

@@ -6,7 +6,7 @@ wget -N https://cloud-images.ubuntu.com/releases/18.04/release/ubuntu-18.04-serv
 
 # Upload to Glance
 echo "Uploading to Glance..."
-TEMP_ID=`glance image-create --disk-format qcow2 --container-format bare --file ubuntu-16.04-server-cloudimg-amd64-disk1.img --name TempUbuntuImage | grep id | awk ' { print $4 }'`
+TEMP_ID=`glance image-create --disk-format qcow2 --container-format bare --file ubuntu-18.04-server-cloudimg-amd64.img --name TempUbuntuImage | grep id | awk ' { print $4 }'`
 DEFAULT_NETWORK_ID=$(openstack network list --provider-network-type flat --share -c ID -f value)
 
 # Run Packer

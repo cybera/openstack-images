@@ -22,12 +22,8 @@ echo options nouveau modeset=0 | sudo tee -a /etc/modprobe.d/nouveau-kms.conf
 sudo update-initramfs -u
 
 # nvidia drivers, cuda
-
 sudo apt-get update
-sudo apt-get install -y python-software-properties
-
-sudo apt-get update
-sudo apt-get install -y linux-image-extra-virtual linux-headers-generic build-essential
+sudo DEBIAN_FRONTEND=noninteractive apt-get install -y linux-image-extra-virtual linux-headers-generic build-essential
 
 wget -q https://developer.nvidia.com/compute/cuda/10.1/Prod/local_installers/cuda_10.1.105_418.39_linux.run
 sudo chmod +x cuda_*
@@ -136,15 +132,41 @@ EOF
 
 sudo ldconfig
 
+if [[ $(lsb_release -c | awk '{ print $2 }') == "bionic" ]]; then
+
+# Use networkd instead of network manager
+sudo systemctl disable network-manager.service
+sudo systemctl enable systemd-networkd.service
+
+# Fix netplan so it can be properly rewritten on update
+cat <<EOF | sudo tee /etc/netplan/50-cloud-init.yaml
+network:
+    version: 2
+    ethernets:
+        ens3:
+            dhcp4: true
+            dhcp6: true
+EOF
+
+# Make xfce4 the default terminal as gnome-terminal doesn't work via VNC
+sudo update-alternatives --set x-terminal-emulator /usr/bin/xfce4-terminal.wrapper
+
+fi
+
 # Clean up
 cd
 sudo rm -rf cuda*
 sudo rm -rf /tmp/*
+sudo rm -rf /{root,home/ubuntu,home/debian}/{.ssh,.bash_history,/*} && history -c
+sudo rm -rf /var/lib/cloud/*
+sudo rm -rf /var/log/journal/*
+sudo rm /etc/machine-id
+sudo touch /etc/machine-id
+sudo rm -rf /var/lib/dbus/machine-id
+sudo rm /var/lib/systemd/timers/*
 sudo rm /etc/apt/apt.conf.d/02proxy
 sudo rm -rf /var/crash/*
-sudo rm -rf /etc/machine-id
-sudo touch /etc/machine-id
-sudo apt-get clean
+sudo apt-get -y clean
 
 #Ensure changes are written to disk
 sync

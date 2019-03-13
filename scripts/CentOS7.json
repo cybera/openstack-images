@@ -25,11 +25,6 @@
   },
   {
     "type": "file",
-    "source": "../packer_files/disableFirewall.sh",
-    "destination": "/home/centos/disableFirewall"
-  },
-  {
-    "type": "file",
     "source": "../packer_files/motd.redhat",
     "destination": "/home/centos/motd"
   },

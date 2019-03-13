@@ -26,7 +26,7 @@ elif [ -f /etc/redhat-release ]; then
 
 fi
 
-sudo pip install pytz python-openstackclient python-novaclient python-keystoneclient python-swiftclient python-glanceclient python-cinderclient python-neutronclient python-ceilometerclient python-troveclient python-heatclient python-designateclient
+sudo pip install -U pytz python-openstackclient python-novaclient python-keystoneclient python-swiftclient python-glanceclient python-cinderclient python-neutronclient python-ceilometerclient python-troveclient python-heatclient python-designateclient
 
 echo "The following OpenStack Command Line Tools have been installed:"
 echo "  * openstack"
