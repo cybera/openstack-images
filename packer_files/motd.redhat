@@ -1,6 +1,9 @@
 ----------------------------
  Cloud Image Helper Scripts
 ----------------------------
+To enable automatic security updates please run:
+/usr/local/bin/enableAutoUpdate
+
 To install the latest OpenStack tools please run:
 /usr/local/bin/installOpenStackTools
 

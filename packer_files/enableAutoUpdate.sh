@@ -19,22 +19,23 @@ elif [ -f /etc/redhat-release ]; then
     sudo yum updateinfo
     # Work around CentOS package bug
     sudo yum update -y yum
-    sudo yum -y install yum-cron
+    sudo yum -y install mailx yum-plugin-changelog
 
+    curl -L https://github.com/wied03/centos-package-cron/releases/download/releases/1.0.10/centos-package-cron-1.0-10.el7.centos.x86_64.rpm -o centos-package-cron.rpm
+    sudo yum install -y centos-package-cron.rpm
+
+    sudo curl -L https://raw.githubusercontent.com/maulinglawns/centos-yum-security/2248fa47bd6bbe040d5ad9935efc36d756c09838/centos-yum-security -o /usr/local/bin/centos-yum-security
+    sudo chmod +x /usr/local/bin/centos-yum-security
+
+    rm centos-package-cron.rpm
+
+    # Add cron entry to run script
     echo """
-    update_cmd = security
-    apply_updates = yes
-    random_sleep = 360
-    [emitters]
-    system_name = None
-    emit_via=stdio
-    output_width=80
-    [base]
-    debuglevel = -2
-    mdpolicy = group:main
-    """ | sudo tee /etc/yum/yum-cron.conf
+#! /bin/bash
+/usr/local/bin/centos-yum-security -y
 
-    sudo service yum-cron start
+    """ | sudo tee /etc/cron.daily/autoupdates
+    sudo chmod +x /etc/cron.daily/autoupdates
 
     echo "Automatic Security Updates Have Been Enabled."
 fi
