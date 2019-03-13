@@ -1,5 +1,7 @@
 #! /bin/bash -x
 
+export DEBIAN_FRONTEND=noninteractive
+
 #Blacklist nouveau
 
 cat <<EOF | sudo tee /etc/modprobe.d/blacklist-nouveau.conf
@@ -21,53 +23,46 @@ sudo update-initramfs -u
 # nvidia drivers, cuda
 
 sudo apt-get update
-sudo apt-get -y upgrade
+# Be extra explicit about noninteractive.
+sudo DEBIAN_FRONTEND=noninteractive apt-get install -y linux-image-extra-virtual linux-headers-generic build-essential unzip dkms
 
-sudo apt-get update
-sudo apt-get install -y dkms linux-headers-generic
-sudo apt-get install -y build-essential
-sudo apt-get update
+# Install vGPU Driver
+echo " ====> Downloading vGPU Driver"
+wget -q https://swift-yyc.cloud.cybera.ca:8080/v1/AUTH_8c4974ed39a44c2fabd9d75895f6e28b/cybera_public/NVIDIA-GRID-Linux-KVM-410.92-410.91-412.16.zip
+unzip NVIDIA-GRID-Linux-KVM-410.92-410.91-412.16.zip
+chmod +x *.run
 
-grep 14 /etc/lsb-release > /dev/null
-if [ $? -eq 0 ]; then
-  #sudo apt-get install -y nvidia-367=367.57-0ubuntu0.14.04.1 nvidia-modprobe
-  sudo apt-get install -y nvidia-modprobe
-  cd /tmp
-  wget -q http://us.download.nvidia.com/XFree86/Linux-x86_64/367.57/NVIDIA-Linux-x86_64-367.57.run
-  chmod +x /tmp/NVIDIA*
-  sudo /tmp/NVIDIA-Linux-x86_64-367.57.run --dkms -as -k $(ls /boot | grep vmlinuz | tail -n 1 | sed 's/vmlinuz-//')
-else
-  #sudo apt-get install -y gcc-4.9 g++-4.9
-  #sudo update-alternatives --install /usr/bin/gcc gcc /usr/bin/gcc-5 20
-  #sudo update-alternatives --install /usr/bin/gcc gcc /usr/bin/gcc-4.9 10
-  #sudo update-alternatives --install /usr/bin/g++ g++ /usr/bin/g++-5 20
-  #sudo update-alternatives --install /usr/bin/g++ g++ /usr/bin/g++-4.9 10
-  #sudo update-alternatives --set gcc "/usr/bin/gcc-4.9"
-  #sudo update-alternatives --set g++ "/usr/bin/g++-4.9"
-  sudo apt-get install -y nvidia-modprobe
-  cd /tmp
-  wget -q http://us.download.nvidia.com/XFree86/Linux-x86_64/367.57/NVIDIA-Linux-x86_64-367.57.run
-  chmod +x /tmp/NVIDIA*
-  sudo /tmp/NVIDIA-Linux-x86_64-367.57.run --dkms -as
-  sudo /tmp/NVIDIA-Linux-x86_64-367.57.run --dkms -as -k $(ls /boot | grep vmlinuz | tail -n 1 | sed 's/vmlinuz-//')
-  sudo nvidia-smi
-fi
+sudo apt-get install -y nvidia-modprobe
 
-# Install extras after driver so that dkms will build in case kernel was updated.
-sudo apt-get install -y dkms linux-image-extra-virtual linux-headers-generic
+echo " ====> Installing vGPU Driver"
+sudo ./NVIDIA-Linux-x86_64-410.92-grid.run --dkms -as -k $(ls /boot | grep vmlinuz | tail -n 1 | sed 's/vmlinuz-//')
 
-sudo apt-get install -y xubuntu-desktop libglu1-mesa-dev libx11-dev freeglut3-dev mesa-utils
+# Cleanup NVIDIA
+rm -rf *.pdf
+rm -rf *.exe
+rm -rf *.zip
+rm -rf *.run
 
-wget -q http://developer.download.nvidia.com/compute/cuda/7.5/Prod/local_installers/cuda_7.5.18_linux.run
-#wget -q https://developer.nvidia.com/compute/cuda/8.0/prod/local_installers/cuda_8.0.44_linux-run
+# Set up licensing
+mkdir -p /etc/nvidia
+cat << EOF | sudo tee /etc/nvidia/gridd.conf
+ServerAddress=nvidia.dair-atir.canarie.ca
+ServerPort=7070
+FeatureType=2
+EnableUI=False
+LicenseInterval=1440
+EOF
+
+echo " ====> Downloading CUDA"
+#10.1 not supported by latest vGPU driver (410.92)
+#wget -q https://developer.nvidia.com/compute/cuda/10.1/Prod/local_installers/cuda_10.1.105_418.39_linux.run
+wget -q https://developer.nvidia.com/compute/cuda/10.0/Prod/local_installers/cuda_10.0.130_410.48_linux
 sudo chmod +x cuda_*
-sudo mkdir nvidia_installers
-sudo ./cuda* -extract=`pwd`/nvidia_installers
-cd nvidia_installers
-sudo ./cuda-linux64-rel-7.5.18-19867135.run -noprompt
-#sudo ./cuda-linux64-rel-8.0.44-21122537.run -noprompt
-sudo ./cuda-samples-linux-7.5.18-19867135.run -noprompt -cudaprefix=/usr/local/cuda-7.5
-#sudo ./cuda-samples-linux-8.0.44-21122537.run -noprompt -cudaprefix=/usr/local/cuda-8.0
+
+echo " ====> Installing CUDA"
+sudo ./cuda* --silent --toolkit --samplespath=/usr/local/cuda/samples
+
+sudo apt-get install -y xubuntu-desktop libglu1-mesa-dev libx11-dev freeglut3-dev mesa-utils dictionaries-common
 
 #TurboVNC and VirtualGL
 cd
@@ -86,7 +81,9 @@ sudo /opt/VirtualGL/bin/vglserver_config -config +s +f +t
 
 #Configure X11 and nvidia
 # K1 = 0:7:0
-# K80 = 0:6:0
+# K80 = 0:5:0
+# Titan Xp = ??
+# P100 = 0:6:0
 cat <<EOF | sudo tee /etc/X11/xorg.conf
 Section "DRI"
         Mode 0666
@@ -126,14 +123,13 @@ Section "Device"
     Identifier     "Device0"
     Driver         "nvidia"
     VendorName     "NVIDIA Corporation"
-    BusID          "0:7:0"
+    BusID          "0:6:0"
 EndSection
 Section "Screen"
     Identifier     "Screen0"
     Device         "Device0"
     Monitor        "Monitor0"
     DefaultDepth    24
-    Option         "UseDisplayDevice" "None"
     SubSection     "Display"
         Virtual     1280 1024
         Depth       24
@@ -161,6 +157,7 @@ VNCSERVERARGS[1]="-securitytypes unixlogin -pamsession -geometry 1240x900 -depth
 EOF
 
 sudo update-rc.d tvncserver defaults
+sudo systemctl enable tvncserver
 
 cat << EOF | sudo tee /etc/ld.so.conf.d/ld-library.conf
 # Add CUDA to LD
@@ -169,28 +166,39 @@ EOF
 
 sudo ldconfig
 
-# Reinstall driver - because figuring out what's overwriting would take long /shrug
-sudo /tmp/NVIDIA-Linux-x86_64-367.57.run --dkms -as -k $(ls /boot | grep vmlinuz | tail -n 1 | sed 's/vmlinuz-//')
-sudo nvidia-smi
+# Use networkd instead of network manager
+sudo systemctl disable network-manager.service
+sudo systemctl enable systemd-networkd.service
+
+# Fix netplan so it can be properly rewritten on update
+cat <<EOF | sudo tee /etc/netplan/50-cloud-init.yaml
+network:
+    version: 2
+    ethernets:
+        ens3:
+            dhcp4: true
+EOF
+sudo netplan apply
+
+# Make xfce4 the default terminal as gnome-terminal doesn't work via VNC
+sudo update-alternatives --set x-terminal-emulator /usr/bin/xfce4-terminal.wrapper
 
 # Clean up
 cd
-sudo rm -rf /{root,home/ubuntu,home/debian}/{.ssh,.bash_history,/*} && history -c
 sudo rm -rf cuda*
-sudo rm -rf nvidia_installers
+sudo rm -rf /root/NVIDIA*
+sudo rm -rf /{root,home/*}/{.ssh,.bash_history} && history -c
 sudo rm -rf /tmp/*
+sudo rm /etc/apt/apt.conf.d/02proxy
+sudo rm -rf /var/crash/*
 sudo rm -rf /var/lib/cloud/*
 sudo rm -rf /var/log/journal/*
-sudo rm /etc/machine-id
+sudo rm -rf /etc/machine-id
 sudo touch /etc/machine-id
 sudo rm -rf /var/lib/dbus/machine-id
 sudo rm /var/lib/systemd/timers/*
-sudo rm /etc/apt/apt.conf.d/02proxy
-sudo rm -rf /var/crash/*
-sudo apt-get -y clean
 
-# Clean up
-cd
+sudo apt-get clean
 
 #Ensure changes are written to disk
 sync
