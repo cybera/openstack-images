@@ -20,13 +20,13 @@
   },
   {
     "type": "file",
-    "source": "../packer_files/installOpenStackTools.sh",
-    "destination": "/home/centos/installOpenStackTools"
+    "source": "../packer_files/enableAutoUpdate.sh",
+    "destination": "/home/centos/enableAutoUpdate"
   },
   {
     "type": "file",
-    "source": "../packer_files/disableFirewall.sh",
-    "destination": "/home/centos/disableFirewall"
+    "source": "../packer_files/installOpenStackTools.sh",
+    "destination": "/home/centos/installOpenStackTools"
   },
   {
     "type": "file",

@@ -25,97 +25,14 @@ sudo rpm -Uvh https://www.elrepo.org/elrepo-release-7.0-3.el7.elrepo.noarch.rpm
 sudo yum -y install kmod-nvidia
 
 sudo yum install -y perl-Env wget epel-release
-sudo yum install -y @xfce
-sudo yum groupinstall -y "X Window System"
-sudo systemctl set-default graphical.target
 
-sudo yum install -y VirtualGL
+# Install CUDA
+wget -q https://developer.nvidia.com/compute/cuda/10.1/Prod/local_installers/cuda_10.1.105_418.39_linux.run
+sudo chmod +x cuda_*
 
-wget -q https://swift-yyc.cloud.cybera.ca:8080/v1/AUTH_ca447e24e0f84eab8e6f6b93703b774a/public_files/turbovnc-2.0.91.x86_64.rpm
-sudo rpm -Uhv turbovnc-2.0.91.x86_64.rpm
-sudo vglserver_config -config +s +f +t
-
-sudo chmod +s /usr/lib64/VirtualGL/libdlfaker.so
-sudo chmod +s /usr/lib64/VirtualGL/librrfaker.so
-
-cd /home/centos
-mkdir .vnc
-cat > .vnc/xstartup.turbovnc <<EOF
-vglrun /usr/bin/startxfce4 &
-EOF
-chmod +x .vnc/xstartup.turbovnc
-touch .vnc/passwd
-chown -R centos: .vnc
-
-sudo ln -fs /etc/pam.d/password-auth /etc/pam.d/turbovnc
-cat <<EOF | sudo tee /etc/sysconfig/tvncservers
-VNCSERVERS="1:centos"
-VNCSERVERARGS[1]="-securitytypes unixlogin -pamsession -geometry 1240x900 -depth 24"
-EOF
-sudo chkconfig --level 345 tvncserver on
-
-
-#Configure X11 and nvidia
-cat <<EOF | sudo tee /etc/X11/xorg.conf
-Section "DRI"
-        Mode 0666
-EndSection
-
-Section "ServerLayout"
-    Identifier     "Layout0"
-    Screen      0  "Screen0"
-    InputDevice    "Keyboard0" "CoreKeyboard"
-    InputDevice    "Mouse0" "CorePointer"
-EndSection
-Section "Files"
-    ModulePath   "/usr/lib64/xorg/modules/extensions/nvidia"
-    ModulePath   "/usr/lib64/xorg/modules"
-EndSection
-Section "InputDevice"
-    # generated from default
-    Identifier     "Mouse0"
-    Driver         "mouse"
-    Option         "Protocol" "auto"
-    Option         "Device" "/dev/input/mice"
-    Option         "Emulate3Buttons" "no"
-    Option         "ZAxisMapping" "4 5"
-EndSection
-Section "InputDevice"
-    # generated from default
-    Identifier     "Keyboard0"
-    Driver         "kbd"
-EndSection
-Section "Monitor"
-    Identifier     "Monitor0"
-    VendorName     "Unknown"
-    ModelName      "Unknown"
-    HorizSync       28.0 - 33.0
-    VertRefresh     43.0 - 72.0
-    Option         "DPMS"
-EndSection
-Section "Device"
-    Identifier     "Device0"
-    Driver         "nvidia"
-    VendorName     "NVIDIA Corporation"
-    BusID          "0:5:0"
-EndSection
-Section "Screen"
-    Identifier     "Screen0"
-    Device         "Device0"
-    Monitor        "Monitor0"
-    DefaultDepth    24
-    Option         "UseDisplayDevice" "None"
-    SubSection     "Display"
-        Virtual     1280 1024
-        Depth       24
-    EndSubSection
-EndSection
-
-EOF
-sudo chattr +i /etc/X11/xorg.conf
-
-wget -q http://developer.download.nvidia.com/compute/cuda/repos/rhel7/x86_64/cuda-10-1-10.1.105-1.x86_64.rpm
-sudo rpm -i cuda-10-1-10.1.105-1.x86_64.rpm
+# 10.1 needs samples specified - 10.0 installer was fine
+sudo ./cuda* --silent --toolkit --samples --samplespath=/usr/local/cuda/samples
+sudo rm -rf /root/NVIDIA*
 
 cat << EOF | sudo tee /etc/ld.so.conf.d/ld-library.conf
 # Add CUDA to LD
@@ -124,16 +41,19 @@ EOF
 
 sudo ldconfig
 
-
 sudo yum clean all
-sudo yum -y install cuda
 sudo rm -rf /{root,home/*}/{.ssh,.bash_history} && history -c
 sudo rm -rf /home/centos/*
+sudo rm -rf /var/lib/cloud/*
+sudo rm /var/lib/systemd/timers/*
+sudo rm -rf /var/crash/*
 
 cat "" | sudo tee /etc/hostname
 
 sudo rm -rf /etc/machine-id
 sudo touch /etc/machine-id
+
+sudo systemctl disable firewalld
 
 #Ensure changes are written to disk
 sync
