@@ -25,7 +25,7 @@ sudo apt-get install -y unzip git python-pip qemu-utils openstack-debian-images
 #rm -rf openstack*
 sudo unzip packer*.zip -d /usr/local/bin/
 
-sudo apt-get install -y python-glanceclient
+sudo apt-get install -y python-glanceclient python-openstackclient python-novaclient python-keystoneclient python-neutronclient
 
 sudo git clone https://github.com/cybera/openstack-images.git /root/packer
 
