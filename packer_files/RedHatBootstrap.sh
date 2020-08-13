@@ -44,5 +44,11 @@ sudo touch /etc/machine-id
 sudo rm /var/lib/systemd/timers/*
 sudo rm -rf /var/crash/*
 
+sudo sh -c 'echo "net.ipv6.conf.default.accept_ra=1" >> /etc/sysctl.d/enable-ipv6-ra.conf'
+sudo sh -c 'echo "net.ipv6.conf.all.accept_ra=1" >> /etc/sysctl.d/enable-ipv6-ra.conf'
+sudo sh -c 'echo "net.ipv6.conf.eth0.accept_ra=1" >> /etc/sysctl.d/enable-ipv6-ra.conf'
+
+sudo yum update cloud-init -y
+
 #Ensure changes are written to disk
 sync
