@@ -4,14 +4,7 @@
 
 sudo mv ~/motd /etc/motd
 
-<<<<<<< HEAD
-sudo mkdir -p /usr/share/dhclient-patch/
-sudo mv ~/dhclientpatch /usr/share/dhclient-patch/
-
-for i in installOpenStackTools disableFirewall enableAutoUpdate; do
-=======
 for i in enableAutoUpdate installOpenStackTools disableFirewall; do
->>>>>>> e2aa262c7eb66edcd3611dbe47c6fd9cb75fdbdc
   sudo mv ~/${i} /usr/local/bin/
   sudo chmod 755 /usr/local/bin/${i}
 done
@@ -37,12 +30,6 @@ sudo rm -rf heat-cfntools-1.4.2.tar.gz
 
 echo "Cleaning Up..."
 # Remove biased udev rules
-<<<<<<< HEAD
-rm /etc/udev/rules.d/*
-
-# Clean up injected data
-sudo rm -rf /{root,home/*}/{.ssh,.bash_history} && history -c
-=======
 sudo rm /etc/udev/rules.d/*
 
 # Clean up injected data
@@ -56,7 +43,6 @@ sudo rm /etc/machine-id
 sudo touch /etc/machine-id
 sudo rm /var/lib/systemd/timers/*
 sudo rm -rf /var/crash/*
->>>>>>> e2aa262c7eb66edcd3611dbe47c6fd9cb75fdbdc
 
 #Ensure changes are written to disk
 sync
