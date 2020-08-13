@@ -15,6 +15,38 @@ if [ -f /etc/debian_version ]; then
     echo "To disable Auto Security Updates - delete /etc/apt/apt.conf.d/20auto-upgrades"
 
 elif [ -f /etc/redhat-release ]; then
+<<<<<<< HEAD
+    TEST=`cat /etc/centos-release | tr -dc '0-9.' | cut -c 1`
+    if [ $TEST == 8 ]; then
+      dnf install dnf-automatic -y
+      sed -i 's/upgrade_type = default/upgrade_type = security/' /etc/dnf/automatic.conf
+      HOSTNAME=`hostname`
+      sed -i "s/# system_name = my-host/system_name = $HOSTNAME/" /etc/dnf/automatic.conf
+      sed -i 's/emit_via = stdio/emit_via = motd/' /etc/dnf/automatic.conf
+      systemctl enable --now dnf-automatic.timer
+    else
+      # Enable Auto Updates
+      sudo yum updateinfo
+      sudo yum -y install yum-cron
+
+      echo """
+      update_cmd = security
+      apply_updates = yes
+      random_sleep = 360
+      [emitters]
+      system_name = None
+      emit_via=stdio
+      output_width=80
+      [base]
+      debuglevel = -2
+      mdpolicy = group:main
+      """ | sudo tee /etc/yum/yum-cron.conf
+
+      sudo service yum-cron start
+
+      echo "Automatic Security Updates Have Been Enabled."
+    fi
+=======
     # Enable Auto Updates
     sudo yum updateinfo
     # Work around CentOS package bug
@@ -38,4 +70,5 @@ elif [ -f /etc/redhat-release ]; then
     sudo chmod +x /etc/cron.daily/autoupdates
 
     echo "Automatic Security Updates Have Been Enabled."
+>>>>>>> e2aa262c7eb66edcd3611dbe47c6fd9cb75fdbdc
 fi
