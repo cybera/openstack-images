@@ -16,18 +16,6 @@ if [ "`rpm -qa \*-release | grep -Ei "oracle|redhat|centos|fedora" | cut -d"-" -
     sudo sed -i '/[Aa]uto/d' /etc/motd
 fi
 
-# get heat-cfntools and build
-cd $HOME
-curl https://files.pythonhosted.org/packages/3d/f9/3a3ea20baf4ddc64e3ba0402514b5baf7cdb718e7a60d589f882c4cc0a8b/heat-cfntools-1.4.2.tar.gz -o heat-cfntools-1.4.2.tar.gz
-tar zxvf heat-cfntools-1.4.2.tar.gz
-cd heat-cfntools-1.4.2
-sudo python setup.py build
-sudo python setup.py install
-# cleanup
-cd $HOME
-sudo rm -rf heat-cfntools-1.4.2
-sudo rm -rf heat-cfntools-1.4.2.tar.gz
-
 echo "Cleaning Up..."
 # Remove biased udev rules
 sudo rm /etc/udev/rules.d/*
@@ -49,6 +37,10 @@ sudo sh -c 'echo "net.ipv6.conf.all.accept_ra=1" >> /etc/sysctl.d/enable-ipv6-ra
 sudo sh -c 'echo "net.ipv6.conf.eth0.accept_ra=1" >> /etc/sysctl.d/enable-ipv6-ra.conf'
 
 sudo yum update cloud-init -y
+sudo yum update -y
+
+# Truncate any log files
+find /var/log -type f -print0 | xargs -0 truncate -s0
 
 #Ensure changes are written to disk
 sync

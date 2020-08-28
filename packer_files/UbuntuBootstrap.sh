@@ -20,20 +20,9 @@ else
 fi
 
 sudo apt-get update
-# Install python and req. packages to build heat-cfntools
+# Install python 
 sudo apt-get install -y python \
-                        python-dev \
-                        python-setuptools
-# Install heat-cfntools and cleanup
-cd $HOME
-wget -q https://pypi.python.org/packages/source/h/heat-cfntools/heat-cfntools-1.4.2.tar.gz
-tar zxvf heat-cfntools-1.4.2.tar.gz
-cd heat-cfntools-1.4.2
-sudo python setup.py build
-sudo python setup.py install
-cd $HOME
-sudo rm -rf heat-cfntools-1.4.2
-sudo rm -rf heat-cfntools-1.4.2.tar.gz
+                        python-dev 
 
 sudo mv /home/${user}/proxyServer /usr/local/bin/
 sudo chmod 755 /usr/local/bin/proxyServer
@@ -57,6 +46,9 @@ sudo touch /etc/machine-id
 sudo rm -rf /var/lib/dbus/machine-id
 sudo rm /var/lib/systemd/timers/*
 #sudo touch /var/lib/cloud/instance/warnings/.skip
+
+# Truncate any log files
+find /var/log -type f -print0 | xargs -0 truncate -s0
 
 #Ensure changes are written to disk
 sync

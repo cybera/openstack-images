@@ -8,8 +8,8 @@
     "ssh_username": "centos",
     "openstack_provider": "nova",
     "image_name": "Packer CentOS8",
-    "flavor": "m1.medium",
-    "floating_ip": "b4b170cc-722c-427a-8893-3637f9e5807a",
+    "flavor": "2",
+    "floating_ip": "522e4bf1-bd0d-4b24-a9c9-f3624b46f83e",
     "floating_ip_pool": "public"
   }],
   "provisioners": [{
@@ -25,11 +25,6 @@
     "type": "file",
     "source": "../packer_files/installOpenStackTools.sh",
     "destination": "/home/centos/installOpenStackTools"
-  },
-  {
-    "type": "file",
-    "source": "../packer_files/disableFirewall.sh",
-    "destination": "/home/centos/disableFirewall"
   },
   {
     "type": "file",
