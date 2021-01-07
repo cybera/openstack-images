@@ -11,8 +11,8 @@ mkdir packer
 unzip -d packer packer_0.8.1_linux_amd64.zip
 rm packer_0.8.1_linux_amd64.zip
 
-apt-get install -y python-pip libssl-dev build-essential libffi-dev python-dev python-openssl
-pip install \
+apt-get install -y python3-pip libssl-dev build-essential libffi-dev python3-dev python3-openssl
+pip3 install \
 	python-openstackclient \
 	python-novaclient \
 	python-keystoneclient \
