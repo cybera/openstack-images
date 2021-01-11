@@ -9,7 +9,7 @@ wget -N https://cloud-images.ubuntu.com/releases/bionic/release/ubuntu-18.04-ser
 
 # Upload to Glance
 echo "Uploading to Glance..."
-glance_id=`glance image-create --disk-format qcow2 --container-format bare --file trusty-server-cloudimg-amd64-disk1.img --name TempUbuntuImage | grep id | awk ' { print $4 }'`
+glance_id=`glance image-create --disk-format qcow2 --container-format bare --file ubuntu-18.04-server-cloudimg-amd64.img --name TempUbuntuImage | grep id | awk ' { print $4 }'`
 
 # Run Packer
 packer build \
