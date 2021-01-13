@@ -28,15 +28,15 @@ sudo apt-get install -y dkms linux-headers-generic
 sudo apt-get install -y build-essential
 sudo apt-get update
 
-grep 14 /etc/lsb-release > /dev/null
-if [ $? -eq 0 ]; then
+#grep 14 /etc/lsb-release > /dev/null
+#if [ $? -eq 0 ]; then
   #sudo apt-get install -y nvidia-367=367.57-0ubuntu0.14.04.1 nvidia-modprobe
   sudo apt-get install -y nvidia-modprobe
   cd /tmp
-  wget -q http://us.download.nvidia.com/XFree86/Linux-x86_64/367.57/NVIDIA-Linux-x86_64-367.57.run
+  wget -q https://swift-yyc.cloud.cybera.ca:8080/v1/AUTH_ca447e24e0f84eab8e6f6b93703b774a/public_files/NVIDIA-GRID-Linux-KVM-450.89-452.57.zip
   chmod +x /tmp/NVIDIA*
-  sudo /tmp/NVIDIA-Linux-x86_64-367.57.run --dkms -as -k $(ls /boot | grep vmlinuz | tail -n 1 | sed 's/vmlinuz-//')
-else
+  sudo /tmp/NVIDIA-Linux-x86_64-450.89-vgpu-kvm.run --dkms -as -k $(ls /boot | grep vmlinuz | tail -n 1 | sed 's/vmlinuz-//')
+#else
   #sudo apt-get install -y gcc-4.9 g++-4.9
   #sudo update-alternatives --install /usr/bin/gcc gcc /usr/bin/gcc-5 20
   #sudo update-alternatives --install /usr/bin/gcc gcc /usr/bin/gcc-4.9 10
@@ -44,14 +44,14 @@ else
   #sudo update-alternatives --install /usr/bin/g++ g++ /usr/bin/g++-4.9 10
   #sudo update-alternatives --set gcc "/usr/bin/gcc-4.9"
   #sudo update-alternatives --set g++ "/usr/bin/g++-4.9"
-  sudo apt-get install -y nvidia-modprobe
-  cd /tmp
-  wget -q http://us.download.nvidia.com/XFree86/Linux-x86_64/367.57/NVIDIA-Linux-x86_64-367.57.run
-  chmod +x /tmp/NVIDIA*
-  sudo /tmp/NVIDIA-Linux-x86_64-367.57.run --dkms -as
-  sudo /tmp/NVIDIA-Linux-x86_64-367.57.run --dkms -as -k $(ls /boot | grep vmlinuz | tail -n 1 | sed 's/vmlinuz-//')
-  sudo nvidia-smi
-fi
+#  sudo apt-get install -y nvidia-modprobe
+#  cd /tmp
+#  wget -q http://us.download.nvidia.com/XFree86/Linux-x86_64/367.57/NVIDIA-Linux-x86_64-367.57.run
+#  chmod +x /tmp/NVIDIA*
+#  sudo /tmp/NVIDIA-Linux-x86_64-367.57.run --dkms -as
+#  sudo /tmp/NVIDIA-Linux-x86_64-367.57.run --dkms -as -k $(ls /boot | grep vmlinuz | tail -n 1 | sed 's/vmlinuz-//')
+#  sudo nvidia-smi
+#fi
 
 # Install extras after driver so that dkms will build in case kernel was updated.
 sudo apt-get install -y dkms linux-image-extra-virtual linux-headers-generic
