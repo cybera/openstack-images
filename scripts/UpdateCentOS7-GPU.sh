@@ -8,7 +8,7 @@ wget -N http://cloud.centos.org/centos/7/images/CentOS-7-x86_64-GenericCloud.qco
 
 # Upload to Glance
 echo "Uploading to Glance..."
-TEMP_ID=`glance image-create --disk-format qcow2 --container-format bare --file CentOS-7-x86_64-GenericCloud.qcow2c --name TempCentOSImage | grep id | awk ' { print $4 }'`
+TEMP_ID=`glance image-create --disk-format qcow2 --container-format bare --file CentOS-7-x86_64-GenericCloud.qcow2c --name TempCentOSImage | egrep -o '[[:digit:]a-zA-Z]{3,12}\-[[:digit:]a-zA-Z]{3,12}\-[[:digit:]a-zA-Z]{3,12}\-[[:digit:]a-zA-Z]{3,12}\-[[:digit:]a-zA-Z]{3,12}'`
 
 # Run Packer
 packer build \
