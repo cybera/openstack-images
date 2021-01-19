@@ -40,7 +40,7 @@ sudo apt-get install -y nvidia-modprobe
 
 echo " ====> Installing vGPU Driver"
 #sudo ./NVIDIA-Linux-x86_64-410.92-grid.run --dkms -as -k $(ls /boot | grep vmlinuz | tail -n 1 | sed 's/vmlinuz-//')
-sudo ./NVIDIA-Linux-x86_64-450.102.04-grid.run --dkms -as -k $(ls /boot | grep vmlinuz | tail -n 1 | sed 's/vmlinuz-//')
+sudo ./NVIDIA-Linux-x86_64-450.102.04-grid.run --dkms -as -k $(ls /boot | grep vmlinuz- | tail -n 1 | sed 's/vmlinuz-//')
 
 # Cleanup NVIDIA
 rm -rf *.pdf
