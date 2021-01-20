@@ -32,7 +32,7 @@ echo " ====> Downloading vGPU Driver"
 #unzip NVIDIA-GRID-Linux-KVM-410.92-410.91-412.16.zip
 #chmod +x *.run
 
-wget -q wget -q https://swift-yyc.cloud.cybera.ca:8080/v1/AUTH_ca447e24e0f84eab8e6f6b93703b774a/public_files/NVIDIA-GRID-Linux-KVM-450.102-450.102.04-452.77.zip
+wget -q https://swift-yyc.cloud.cybera.ca:8080/v1/AUTH_ca447e24e0f84eab8e6f6b93703b774a/public_files/NVIDIA-GRID-Linux-KVM-450.102-450.102.04-452.77.zip
 unzip NVIDIA-GRID-Linux-KVM-450.102-450.102.04-452.77.zip
 chmod +x *.run
 
