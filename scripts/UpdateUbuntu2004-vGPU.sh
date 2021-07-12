@@ -9,7 +9,7 @@ echo "Uploading to Glance..."
 TEMP_ID=`glance image-create --disk-format qcow2 --container-format bare --file ubuntu-20.04-server-cloudimg-amd64.img --name TempUbuntuImage | egrep -o '[[:digit:]a-zA-Z]{3,12}\-[[:digit:]a-zA-Z]{3,12}\-[[:digit:]a-zA-Z]{3,12}\-[[:digit:]a-zA-Z]{3,12}\-[[:digit:]a-zA-Z]{3,12}'`
 
 # Run Packer
-packer build \
+~/packer/packer build \
     -var "source_image=$TEMP_ID" \
     ../scripts/Ubuntu2004-vGPU.json | tee ../logs/Ubuntu2004-vGPU.log
 

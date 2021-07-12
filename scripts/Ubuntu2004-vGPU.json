@@ -7,11 +7,10 @@
     "source_image": "{{ user `source_image` }}",
     "ssh_username": "ubuntu",
     "openstack_provider": "nova",
-    "floating_ip_network": "26e58a3f-f606-4777-aa22-8d2d1e964fe0",
-    "networks": "ae45de88-552c-448b-88f1-68c0556b7f8e",
-    "reuse_ips": true,
+    "networks": "bad95ca2-d3ad-418a-b8c9-1f29346e59d9",
     "image_name": "Packer2004",
-    "flavor": "g1.vgpu"
+    "flavor": "g1.vgpu",
+    "reuse_ips": 1
   }],
   "provisioners": [{
     "type": "shell",

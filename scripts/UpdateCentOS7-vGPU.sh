@@ -8,10 +8,10 @@ wget -N http://cloud.centos.org/centos/7/images/CentOS-7-x86_64-GenericCloud.qco
 
 # Upload to Glance
 echo "Uploading to Glance..."
-TEMP_ID=`glance image-create --disk-format qcow2 --container-format bare --file CentOS-7-x86_64-GenericCloud.qcow2c --name TempCentOSImage | grep id | awk ' { print $4 }'`
+TEMP_ID=`glance image-create --disk-format qcow2 --container-format bare --file CentOS-7-x86_64-GenericCloud.qcow2c --name TempCentOSImage | grep id | head -n 1  | awk ' { print $4 }'`
 
 # Run Packer
-packer build \
+~/packer/packer build \
     -var "source_image=$TEMP_ID" \
     ../scripts/CentOS7-vGPU.json $@ | tee ../logs/CentOS7-vGPU.log
 

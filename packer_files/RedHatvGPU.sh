@@ -30,10 +30,14 @@ sudo yum -y update
 sudo yum -y install dkms
 
 # Install vGPU Driver
-wget -q https://swift-yyc.cloud.cybera.ca:8080/v1/AUTH_8c4974ed39a44c2fabd9d75895f6e28b/cybera_public/NVIDIA-GRID-Linux-KVM-410.92-410.91-412.16.zip
-unzip NVIDIA-GRID-Linux-KVM-410.92-410.91-412.16.zip
-chmod +x *.run
-sudo ./NVIDIA-Linux-x86_64-410.92-grid.run --dkms -as -k $(ls /boot | grep vmlinuz | tail -n 1 | sed 's/vmlinuz-//') --no-opengl-files
+wget -q https://swift-yyc.cloud.cybera.ca:8080/v1/AUTH_8c4974ed39a44c2fabd9d75895f6e28b/cybera_public/NVIDIA-GRID-Linux-KVM-460.73.02-460.73.01-462.31.zip
+unzip NVIDIA-GRID-Linux-KVM-*.zip
+chmod 755 NVIDIA-Linux-x86_64-*-grid.run
+
+sudo yum -y install nvidia-modprobe
+
+echo " ====> Installing vGPU Driver"
+sudo ./NVIDIA-Linux-x86_64-*-grid.run --dkms --skip-module-unload -as -k $(ls /boot | grep vmlinuz- | tail -n 1 | sed 's/vmlinuz-//')
 
 # Set up licensing
 mkdir -p /etc/nvidia
@@ -48,7 +52,8 @@ EOF
 # Install CUDA
 # 10.1 not supported by 410.92 driver. Need 418.xx+ to be released
 #wget -q https://developer.nvidia.com/compute/cuda/10.1/Prod/local_installers/cuda_10.1.105_418.39_linux.run
-wget -q https://developer.nvidia.com/compute/cuda/10.0/Prod/local_installers/cuda_10.0.130_410.48_linux
+#wget -q https://developer.nvidia.com/compute/cuda/10.0/Prod/local_installers/cuda_10.0.130_410.48_linux
+wget https://developer.download.nvidia.com/compute/cuda/11.2.2/local_installers/cuda_11.2.2_460.32.03_linux.run
 sudo chmod +x cuda_*
 
 sudo ./cuda* --silent --toolkit --samplespath=/usr/local/cuda/samples

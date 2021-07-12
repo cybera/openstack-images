@@ -33,9 +33,11 @@ sudo apt-get update
   #sudo apt-get install -y nvidia-367=367.57-0ubuntu0.14.04.1 nvidia-modprobe
   sudo apt-get install -y nvidia-modprobe
   cd /tmp
-  wget -q https://swift-yyc.cloud.cybera.ca:8080/v1/AUTH_ca447e24e0f84eab8e6f6b93703b774a/public_files/NVIDIA-GRID-Linux-KVM-450.89-452.57.zip
-  chmod +x /tmp/NVIDIA*
-  sudo /tmp/NVIDIA-Linux-x86_64-450.89-vgpu-kvm.run --dkms -as -k $(ls /boot | grep vmlinuz | tail -n 1 | sed 's/vmlinuz-//')
+  #wget -q https://swift-yyc.cloud.cybera.ca:8080/v1/AUTH_ca447e24e0f84eab8e6f6b93703b774a/public_files/NVIDIA-GRID-Linux-KVM-450.89-452.57.zip
+  wget -q https://swift-yyc.cloud.cybera.ca:8080/v1/AUTH_8c4974ed39a44c2fabd9d75895f6e28b/cybera_public/NVIDIA-GRID-Linux-KVM-460.73.02-460.73.01-462.31.zip
+  unzip /tmp/NVIDIA-GRID-Linux-KVM-*.zip
+  chmod +x /tmp/NVIDIA-*kvm.run
+  sudo /tmp/NVIDIA-Linux-x86_64-*-vgpu-kvm.run --dkms -as -k $(ls /boot | grep vmlinuz | tail -n 1 | sed 's/vmlinuz-//')
 #else
   #sudo apt-get install -y gcc-4.9 g++-4.9
   #sudo update-alternatives --install /usr/bin/gcc gcc /usr/bin/gcc-5 20
