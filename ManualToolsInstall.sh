@@ -6,10 +6,10 @@ sudo apt-get update
 sudo apt-get -y upgrade
 sudo apt-get -y install git unzip
 cd $HOME
-wget -q https://releases.hashicorp.com/packer/1.3.4/packer_1.3.4_linux_amd64.zip
+wget -q https://releases.hashicorp.com/packer/1.7.8/packer_1.7.8_linux_amd64.zip
 mkdir packer
-unzip -d packer packer_1.3.4_linux_amd64.zip
-rm packer_1.3.4_linux_amd64.zip
+unzip -d packer packer_1.7.8_linux_amd64.zip
+rm packer_1.7.8_linux_amd64.zip
 
 sudo apt-get install -y python-pip libssl-dev build-essential libffi-dev python-dev python-openssl
 pip install \

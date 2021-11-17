@@ -16,16 +16,27 @@ lsb_release -a
 sudo apt-get update
 sudo apt-get -y upgrade
 
-wget https://releases.hashicorp.com/packer/1.3.4/packer_1.3.4_linux_amd64.zip
+wget https://releases.hashicorp.com/packer/1.7.8/packer_1.7.8_linux_amd64.zip
 
 sudo apt-get install -y unzip git python-pip qemu-utils openstack-debian-images
-#wget http://ftp.de.debian.org/debian/pool/main/o/openstack-debian-images/openstack-debian-images_1.2.tar.xz
-#tar xvfJ openstack-debian-images_1.2.tar.xz
-#sudo mv openstack-debian-images-1.2/build-openstack-debian-image /usr/sbin
-#rm -rf openstack*
 sudo unzip packer*.zip -d /usr/local/bin/
 
-sudo apt-get install -y python-glanceclient python-openstackclient python-novaclient python-keystoneclient python-neutronclient
+sudo apt-get install -y python3-pip libssl-dev build-essential libffi-dev python3-dev python3-openssl
+pip3 install \
+  python-openstackclient \
+  python-novaclient \
+  python-keystoneclient \
+  python-swiftclient \
+  python-glanceclient \
+  python-cinderclient \
+  python-neutronclient \
+  python-ceilometerclient \
+  python-troveclient \
+  python-heatclient
+
+echo “PATH=\$PATH:$HOME/packer” >> $HOME/.profile
+source $HOME/.profile
+
 
 sudo git clone https://github.com/cybera/openstack-images.git /root/packer
 
