@@ -9,9 +9,9 @@
     "openstack_provider": "nova",
     "image_name": "PackerCentOS7",
     "ssh_pty": "true",
-    "floating_ip_network": "26e58a3f-f606-4777-aa22-8d2d1e964fe0",
-    "networks": "ae45de88-552c-448b-88f1-68c0556b7f8e",
     "reuse_ips": true,
+    "networks": "275c4c0d-235e-4851-b7ac-efc6ac54c591",
+    "security_groups": "5912b58e-9819-485f-b95e-07ed1b338efd",
     "flavor": "g1.vgpu"
   }],
   "provisioners": [{

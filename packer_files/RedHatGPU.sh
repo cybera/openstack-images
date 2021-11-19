@@ -37,15 +37,14 @@ echo " ====> Downloading vGPU Driver"
 #unzip NVIDIA-GRID-Linux-KVM-410.92-410.91-412.16.zip
 #chmod +x *.run
 
-wget -q wget -q https://swift-yyc.cloud.cybera.ca:8080/v1/AUTH_ca447e24e0f84eab8e6f6b93703b774a/public_files/NVIDIA-GRID-Linux-KVM-450.102-450.102.04-452.77.zip
-unzip NVIDIA-GRID-Linux-KVM-450.102-450.102.04-452.77.zip
-chmod +x *.run
+wget -q https://swift-yyc.cloud.cybera.ca:8080/v1/AUTH_8c4974ed39a44c2fabd9d75895f6e28b/cybera_public/NVIDIA-GRID-Linux-KVM-460.107-460.106.00-463.15.zip
+unzip NVIDIA-GRID-Linux-KVM-*.zip
+chmod 755 NVIDIA-Linux-x86_64-*-grid.run
 
 sudo apt-get install -y nvidia-modprobe
 
 echo " ====> Installing vGPU Driver"
-#sudo ./NVIDIA-Linux-x86_64-410.92-grid.run --dkms -as -k $(ls /boot | grep vmlinuz | tail -n 1 | sed 's/vmlinuz-//')
-sudo ./NVIDIA-Linux-x86_64-450.102.04-grid.run --dkms -as -k $(ls /boot | grep vmlinuz | tail -n 1 | sed 's/vmlinuz-//')
+sudo ./NVIDIA-Linux-x86_64-*-grid.run --dkms --skip-module-unload -as -k $(ls /boot | grep vmlinuz- | tail -n 1 | sed 's/vmlinuz-//')
 
 # Cleanup NVIDIA
 rm -rf *.pdf
@@ -169,7 +168,8 @@ echo " ====> Downloading CUDA"
 #10.1 not supported by latest vGPU driver (410.92)
 #wget -q https://developer.nvidia.com/compute/cuda/10.1/Prod/local_installers/cuda_10.1.105_418.39_linux.run
 #wget -q https://developer.nvidia.com/compute/cuda/10.0/Prod/local_installers/cuda_10.0.130_410.48_linux
-wget -q https://developer.download.nvidia.com/compute/cuda/11.0.3/local_installers/cuda_11.0.3_450.51.06_linux.run
+#wget -q https://developer.download.nvidia.com/compute/cuda/11.0.3/local_installers/cuda_11.0.3_450.51.06_linux.run
+wget https://developer.download.nvidia.com/compute/cuda/11.5.0/local_installers/cuda_11.5.0_495.29.05_linux.run
 sudo chmod +x cuda_*
 
 echo " ====> Installing CUDA"

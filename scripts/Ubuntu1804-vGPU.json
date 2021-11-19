@@ -7,7 +7,8 @@
     "source_image": "{{ user `source_image` }}",
     "ssh_username": "ubuntu",
     "openstack_provider": "nova",
-    "networks": "bad95ca2-d3ad-418a-b8c9-1f29346e59d9",
+    "networks": "275c4c0d-235e-4851-b7ac-efc6ac54c591",
+    "security_groups": "5912b58e-9819-485f-b95e-07ed1b338efd",
     "reuse_ips": true,
     "image_name": "Packer1804",
     "flavor": "g1.vgpu"
