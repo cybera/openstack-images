@@ -12,8 +12,8 @@ unzip -d packer packer_1.7.8_linux_amd64.zip
 rm packer_1.7.8_linux_amd64.zip
 
 sudo apt-get install -y python3-pip libssl-dev build-essential libffi-dev python3-dev python3-openssl
-pip install --upgrade pip
-pip install \
+pip3 install --upgrade pip
+pip3 install \
 	python-openstackclient \
 	python-novaclient \
 	python-keystoneclient \
