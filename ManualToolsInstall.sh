@@ -6,7 +6,7 @@ sudo apt-get update
 sudo apt-get -y upgrade
 sudo apt-get -y install git unzip
 cd $HOME
-wget -q https://releases.hashicorp.com/packer/1.7.8/packer_1.7.8_linux_amd64.zip
+wget -q https://releases.hashicorp.com/packer/0.8.1/packer_0.8.1_linux_amd64.zip
 mkdir packer
 unzip -d packer packer_1.7.8_linux_amd64.zip
 rm packer_1.7.8_linux_amd64.zip
