@@ -28,13 +28,15 @@ sudo DEBIAN_FRONTEND=noninteractive apt-get install -y linux-image-extra-virtual
 
 # Install vGPU Driver
 echo " ====> Downloading vGPU Driver"
-#wget -q https://swift-yyc.cloud.cybera.ca:8080/v1/AUTH_8c4974ed39a44c2fabd9d75895f6e28b/cybera_public/NVIDIA-GRID-Linux-KVM-410.92-410.91-412.16.zip
-#unzip NVIDIA-GRID-Linux-KVM-410.92-410.91-412.16.zip
+#wget -q https://swift-yyc.cloud.cybera.ca:8080/v1/AUTH_8c4974ed39a44c2fabd9d75895f6e28b/cybera_public/NVIDIA-GRID-Linux-KVM-510.85.03-510.85.02-513.46.zip
+#unzip NVIDIA-GRID-Linux-KVM-510.85.03-510.85.02-513.46.zip
 #chmod +x *.run
 
 
-#wget -q https://swift-yyc.cloud.cybera.ca:8080/v1/AUTH_8c4974ed39a44c2fabd9d75895f6e28b/cybera_public/NVIDIA-GRID-Linux-KVM-460.73.02-460.73.01-462.31.zip
-wget -q https://swift-yyc.cloud.cybera.ca:8080/v1/AUTH_8c4974ed39a44c2fabd9d75895f6e28b/cybera_public/NVIDIA-GRID-Linux-KVM-460.107-460.106.00-463.15.zip
+
+
+#wget -q https://swift-yyc.cloud.cybera.ca:8080/v1/AUTH_8c4974ed39a44c2fabd9d75895f6e28b/cybera_public/NVIDIA-GRID-Linux-KVM-510.85.03-510.85.02-513.46.zip
+wget -q https://swift-yyc.cloud.cybera.ca:8080/v1/AUTH_8c4974ed39a44c2fabd9d75895f6e28b/cybera_public/NVIDIA-GRID-Linux-KVM-510.85.03-510.85.02-513.46.zip
 unzip NVIDIA-GRID-Linux-KVM-*.zip
 chmod 755 NVIDIA-Linux-x86_64-*-grid.run
 
