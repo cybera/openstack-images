@@ -6,14 +6,14 @@ sudo apt-get update
 sudo apt-get -y upgrade
 sudo apt-get -y install git unzip
 cd $HOME
-wget -q https://releases.hashicorp.com/packer/0.8.1/packer_0.8.1_linux_amd64.zip
+wget -q https://releases.hashicorp.com/packer/1.8.3/packer_1.8.3_linux_amd64.zip
 mkdir packer
-unzip -d packer packer_1.7.8_linux_amd64.zip
-rm packer_1.7.8_linux_amd64.zip
+unzip -d packer packer_1.8.3_linux_amd64.zip
+rm packer_1.8.3_linux_amd64.zip
 
 sudo apt-get install -y python3-pip libssl-dev build-essential libffi-dev python3-dev python3-openssl
 pip3 install --upgrade pip
-pip3 install \
+pip3 install --ignore-installed \
 	python-openstackclient \
 	python-novaclient \
 	python-keystoneclient \
@@ -25,5 +25,5 @@ pip3 install \
 	python-troveclient \
 	python-heatclient
 
-echo “PATH=\$PATH:$HOME/packer” >> $HOME/.profile
+echo "PATH=\$PATH:$HOME/packer" >> $HOME/.profile
 source $HOME/.profile

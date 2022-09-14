@@ -8,10 +8,11 @@
     "ssh_username": "centos",
     "openstack_provider": "nova",
     "image_name": "PackerCentOS7",
-    "flavor": "g1.vgpu",
     "ssh_pty": "true",
-    "networks": "bad95ca2-d3ad-418a-b8c9-1f29346e59d9",
-    "reuse_ips": true
+    "reuse_ips": true,
+    "networks": "ac9e708b-eccc-4a95-bb5b-0e00791765b4",
+    "security_groups": "a98ad777-cacf-4117-9607-77bc0ce0b635",
+    "flavor": "g1.vgpu"
   }],
   "provisioners": [{
     "type": "shell",
@@ -19,9 +20,8 @@
   },
   {
     "type": "shell",
-    "script": "../packer_files/RedHatvGPU.sh",
-    "pause_before": "1s",
-    "expect_disconnect": true
+    "script": "../packer_files/RedHatGPU.sh",
+    "pause_before": "1s"
   }]
 }
 

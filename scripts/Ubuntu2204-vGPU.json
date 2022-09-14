@@ -7,18 +7,19 @@
     "source_image": "{{ user `source_image` }}",
     "ssh_username": "ubuntu",
     "openstack_provider": "nova",
-    "image_name": "Packer1604",
-    "flavor": "g1.large",
-    "floating_ip": "162.244.228.29",
-    "floating_ip_pool": "nova"
+    "networks": "ac9e708b-eccc-4a95-bb5b-0e00791765b4",
+    "image_name": "Packer2204",
+    "flavor": "g1.vgpu",
+    "security_groups": "a98ad777-cacf-4117-9607-77bc0ce0b635",
+    "reuse_ips": 1
   }],
   "provisioners": [{
     "type": "shell",
-    "inline": ["sleep 5"]
+    "inline": ["sleep 30"]
   },
   {
     "type": "shell",
-    "script": "../packer_files/UbuntuGPU.sh",
+    "script": "../packer_files/UbuntuvGPU.sh",
     "pause_before": "1s"
   }]
 }
