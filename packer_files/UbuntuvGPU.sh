@@ -30,6 +30,7 @@ sudo DEBIAN_FRONTEND=noninteractive apt-get install -y linux-image-extra-virtual
 echo " ====> Downloading vGPU Driver"
 #wget -q https://swift-yyc.cloud.cybera.ca:8080/v1/AUTH_8c4974ed39a44c2fabd9d75895f6e28b/cybera_public/NVIDIA-GRID-Linux-KVM-470.103.02-470.103.01-472.98.zip
 wget -q https://swift-yyc.cloud.cybera.ca:8080/v1/AUTH_8c4974ed39a44c2fabd9d75895f6e28b/cybera_public/NVIDIA-GRID-Linux-KVM-510.47.03-511.65.zip 
+
 unzip NVIDIA-GRID-Linux-KVM-*.zip
 cd Guest_Drivers
 chmod 755 ./NVIDIA-Linux-x86_64-*-grid.run
