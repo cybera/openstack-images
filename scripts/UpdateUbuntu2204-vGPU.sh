@@ -20,9 +20,9 @@ fi
 glance image-delete ${TEMP_ID}
 echo "Deleted ${TEMP_ID}"
 
-sleep 5
+sleep 60
 IMAGE_ID=$(glance image-list | grep Packer2204 | awk ' { print $2} ')
-glance image-update --name "Ubuntu 22.04 - vGPU"  --property description="Built on `date`" --property image_type='image' --property os_type=linux --remove-property base_image_ref --remove-property image_location --remove-property instance_uuid --remove-property owner_id --remove-property user_id "${IMAGE_ID}"
+glance image-update --name "Ubuntu 22.04 - vGPU" --property description="Built on `date`" --property image_type='image' --property os_type=linux --remove-property base_image_ref --remove-property image_location --remove-property instance_uuid --remove-property owner_id --remove-property user_id "${IMAGE_ID}"  
 glance image-tag-update "${IMAGE_ID}" GPU
 
 echo "Image Available !"
